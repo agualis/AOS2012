@@ -1,0 +1,13 @@
+cron:
+- description: purge tokens
+  url: /admin/cron/tokens
+  schedule: every 10 minutes
+  
+#- description: Execute mapreduce
+#  url: /admin/cron/execute_mapreduce
+#  schedule: every 3 minutes
+#  timezone: Europe/Madrid
+
+#- description: 
+#  url: /admin/cron/count_global_operations
+#  schedule: every 24 hours

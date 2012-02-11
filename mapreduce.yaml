@@ -1,0 +1,8 @@
+mapreduce:
+- name: 
+  mapper:my_choosen_name
+    input_reader: mapreduce.input_readers.DatastoreInputReader
+    handler: map_reduce_handlers.function_path
+    params:
+    - name: entity_kind
+      default: 

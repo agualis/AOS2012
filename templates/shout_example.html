@@ -1,0 +1,17 @@
+{% extends "includes/base.html" %}{% load i18n %}
+
+{% block global_content %}
+
+    {% for shout in shouts %}
+        <p>{{ shout.user }} : {{ shout.title }} <br> {{ shout.text }} <br>
+        {{ shout.mtime|timesince }}<hr> </p>
+    {% endfor %}
+    
+    <form method="POST" action="/post"> 
+    <table>
+        {{ form }}
+        <tr><td><input type="submit"></td></tr> 
+    </table>
+    </form>
+
+{% endblock %}

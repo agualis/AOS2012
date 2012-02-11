@@ -1,0 +1,43 @@
+{% load i18n %}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head id="{{ token|default:'no_token' }}">
+     <title>{% block title %}AOS{% endblock title %}</title>
+  	 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  	 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	<meta name="keywords" content="AOS"/>
+	<meta name="description" content=""/>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8"/>
+    {% block stylesheets %}
+    	<link rel="stylesheet" type="text/css" href="/static/styles/base.css" />
+    {% endblock stylesheets %}
+</head>
+<body>
+	<div class="main">
+        <div class="header">
+			<div class="top">&nbsp;</div><!-- end of top-->
+            
+                {% block common_header %}
+                    {% if user %}
+                        {{ user.user_id }}
+                        [<a href="{% url aos.users.authentication.logout %}"><b>sign out</b></a>]
+                    {% else %}
+                        [<a href="{% url aos.users.authentication.login %}"><b>sign in</b></a>]
+                    {% endif %}
+                {% endblock common_header %}
+            
+				{% block global_content %}
+                {% endblock global_content %}
+ 			</div><!--  end of header-->
+	</div><!-- end of main -->
+</body>	
+</html>
+{% block scripts %}
+	<script type="text/javascript" src="/static/scripts/jquery.js"></script>
+	<script type="text/javascript" src="/static/scripts/jquery.sha1.js"></script>
+	<script type="text/javascript" src="/static/scripts/login.js"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    {% block scripts2 %}{% endblock scripts2 %}
+{% endblock scripts %}

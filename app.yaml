@@ -1,0 +1,52 @@
+application: aos
+version: 1
+runtime: python
+api_version: 1
+
+derived_file_type:
+- python_precompiled
+
+builtins:
+- remote_api: on
+- datastore_admin: on
+
+inbound_services:
+- mail
+  
+handlers:
+#- url: /stats.*
+#  script: $PYTHON_LIB/google/appengine/ext/appstats/ui.py
+
+- url: /mapreduce(/.*)?
+  script: mapreduce/main.py
+  login: admin
+    
+- url: /remote_api
+  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
+  login: admin
+  
+- url: /favicon.ico
+  static_files: favicon.ico
+  upload: favicon.ico 
+  expiration: "1d"
+
+- url: /robots.txt
+  static_files: robots.txt
+  upload: robots.txt 
+  expiration: "1d"
+
+- url: /static
+  static_dir: static
+  expiration: "1d"
+
+- url: /admin.*
+  script: main.py
+  
+- url: /test.*
+  script: gaeunit.py
+
+- url: /_ah/mail/.*
+  script: email/handler_incoming_email.py 
+  
+- url: .*
+  script: main.py
