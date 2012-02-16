@@ -51,7 +51,30 @@ def get_random_identifier(length=6, prefix=''):
     """
     return prefix + ''.join([choice(ALL_CHARS) for i in range(length - len(prefix))])
 
+
+def to_json(model_instance, map={}, exclude=[]):
+    """Return a dictionary with the attributes of the instance mapped to json-able values 
     
+    Include key, value pairs of the given map but exclude the listed attributes.
+    """ 
+    result = {}
+    result.update(map)
+    props = [key for key in getattr(model_instance, '_properties').iterkeys()]
+    props += [key for key in getattr(model_instance, '_dynamic_properties', {}).iterkeys()]
+    for attr in props:
+        if attr in map or attr.startswith('_') or attr in exclude:
+            pass
+        else:
+            try:
+                value = getattr(model_instance, attr)
+                if isinstance(value, datetime):
+                    result[attr] = str(value)[:26]
+                elif value <> None:
+                    result[attr] = value
+            except AttributeError, e:
+                logging.error('AttributeError: %s' % e)
+    return result 
+
 class JsonResponse(HttpResponse):
     def __init__(self, object=None, content_type='application/json', **kwargs):
         super(JsonResponse, self).__init__(

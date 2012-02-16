@@ -1,36 +1,35 @@
 import unittest
-from google.appengine.ext import testbed, db
+from google.appengine.ext import db
+from aos.users.authentication import authorize_web_access
+from aos.models.talk_model import Room, Talk
+from django.http import HttpResponse
 import logging
 from common_utils.test import TestBedInitializer
 
-class Person(db.Model):
-    name = db.StringProperty(required=True)
-    age = db.IntegerProperty(default=18)
 
-    def is_old(self):
-        return self.age >= 80
-    
-class TestPerson(unittest.TestCase, TestBedInitializer):
-    
+class TalksTestCase(unittest.TestCase, TestBedInitializer):
+
     def setUp(self):
         self.init_testbed_for_datastore_tests()
-    
-    def test_is_old(self):  
-        person = Person(name='JJ', age=22)
-        self.assertFalse(person.is_old())
+        self.init_django_settings()
+        self.room1 = Room(key_name = 'sala1', name = "sala1")
+        room_key1 = self.room1.put()
+        room_key2 = Room(key_name = 'sala2', name = "sala2").put()
+        Talk(title = 'Titulo1',  schedule = '18:30', room = room_key1).put()
+        Talk(title = 'Titulo2',  schedule = '19:30', room = room_key1).put()
+        Talk(title = 'Titulo3',  schedule = '20:30', room = room_key2).put()
+
+    #@authorize_web_access()
+    def test_fetch_talks_from_room(self):
+        room = Room.all().filter('name', 'sala1').get()
+        self.assertEquals('Titulo1', room.talks[0].title)
+        self.assertEquals('Titulo2', room.talks[1].title)
+
+    def test_filter_by_talk_name(self):
+        talk = self.room1.talks.filter('title', 'Titulo2').get()
+        self.assertEquals('19:30', talk.schedule)
         
-    def test_is_empty(self):
-        self.assertEqual(Person.all().count(), 0)
-
-        person = Person(name='JJ', age=22)
-        person.put()
-
-        self.assertEqual(Person.all().count(), 1)
-
-    def test_assert_empty_again(self):
-        self.assertEqual(Person.all().count(), 0)
-    
-        person = Person(name='JJ', age=22)
-        person.put()
-    
-        self.assertEqual(Person.all().count(), 1)
+    def test_serialize_to_json(self):
+        logging.error("AG:  %s " %  self.room1.to_json())
+        logging.error("AG:  %s " %  self.room1.talks[0].to_json())
+        

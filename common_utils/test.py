@@ -7,3 +7,8 @@ class TestBedInitializer():
         self.testbed.activate()
         # Next, declare which service stubs you want to use.
         self.testbed.init_datastore_v3_stub()
+        
+    def init_django_settings(self):
+        import settings
+        import os
+        os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
