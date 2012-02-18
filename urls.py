@@ -16,8 +16,9 @@ urlpatterns = patterns('',
     (r'^shout$', 'aos.views.shout_view.shout'),
     (r'^post$', 'aos.views.shout_view.post'),
 
-    #API views
-    
+    #views
+	(r'^attendant$', 'aos.views.attendant_view.create_attendant'),
+
     #login functions
     (r'login(?P<return_url>/[\w_/]{0,50})?$', 'aos.users.authentication.login'),
     (r'logout/?$', 'aos.users.authentication.logout'),
