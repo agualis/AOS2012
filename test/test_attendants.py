@@ -1,18 +1,14 @@
 import unittest
 from google.appengine.ext import db
-from aos.users.authentication import authorize_web_access
-from aos.models.talk_model import Room, Talk
+from aos.models.attendant_model import Attendant
 from django.http import HttpResponse
 import logging
+from aos.models import attendant_model
+
+
 from common_utils.test import TestBedInitializer
 
 
-class Attendant(db.Model):
-	first_name = db.StringProperty(required=True)
-	last_name = db.StringProperty(required=True)
-	email = db.EmailProperty(required=True)
-	city = db.StringProperty(required=True)
-	catering = db.BooleanProperty(required=True)
 
 	
 class AttendantTestCase(unittest.TestCase, TestBedInitializer):

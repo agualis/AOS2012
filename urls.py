@@ -18,6 +18,7 @@ urlpatterns = patterns('',
 
     #views
 	(r'^attendant$', 'aos.views.attendant_view.create_attendant'),
+	(r'^attendant_response$', 'aos.views.attendant_view.create_attendant_response'),
 
     #login functions
     (r'login(?P<return_url>/[\w_/]{0,50})?$', 'aos.users.authentication.login'),
