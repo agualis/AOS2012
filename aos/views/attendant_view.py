@@ -10,7 +10,7 @@ def create_attendant(request):
     return render_to_response('attendant.html', {})
 
 
-def create_attendant_response(request):
+def create_attendant_response(request):	
     first_name = request.POST['first_name'][:20]
     last_name = request.POST['last_name'][:20]
     email = request.POST['email'][:20]
@@ -23,12 +23,7 @@ def create_attendant_response(request):
 
 
     try:
-        attendant = Attendant(key_name=email,
-            email=email,
-            last_name=last_name,
-            first_name=first_name,
-            city=city,
-            catering=catering)
+        attendant = Attendant.create(first_name, last_name, email, city, catering)
         ok = attendant.put()
 
         return HttpResponse('Creado Attendant ' + first_name + ' ok')

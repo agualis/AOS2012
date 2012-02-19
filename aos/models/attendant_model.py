@@ -8,5 +8,12 @@ class Attendant(db.Model):
     city = db.StringProperty(required=True)
     catering = db.BooleanProperty(required=True)
 
-
-
+    # http://stackoverflow.com/questions/843580/writing-a-init-function-to-be-used-in-django-model
+    def create(first_name, last_name, email, city, catering):
+	return Attendant(key_name=email,
+			 first_name=first_name,
+			 last_name=last_name,
+			 email=email,
+			 city=city,
+			 catering=catering)
+    create = staticmethod(create)
