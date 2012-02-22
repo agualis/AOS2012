@@ -1,0 +1,35 @@
+<ul>
+{% for room in rooms %}
+    <li>{{ room.name }}
+    </li>
+{% endfor %}
+</ul>
+
+
+<ul>
+
+    <li>
+        PRUEBA
+    </li>
+</ul>
+
+<table id="board">
+<tr>
+    {% for room in rooms %}
+    <td id="Sala1" >
+        <div class="column-header" title="Sala">{{ room.name }}</div>
+                <ul class="talk-list">
+                    <li id="talk1">
+                        <div class="story-header">
+                            Talk1<a class="story-details" href="/project/6711/story/1437">Detalles1</a></div>
+                        </div>
+                    </li>
+                </ul>
+    </td>
+    {% endfor %}
+
+</tr>
+
+<form method="POST" action="/create_talk"> 
+        Charla: <input type='text' name='first_name'/>
+    </form>
