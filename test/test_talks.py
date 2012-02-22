@@ -39,8 +39,8 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
         self.assertEquals('sala1', talk.room.name)
         
     def test_add_time_to_talk(self):
-        talk = Talk.add_time_to_talk(self.talk_key_4.id(), 17, 30)
-        self.assertEquals(17, talk.time.hour)
+        talk = Talk.add_time_to_talk(self.talk_key_4.id(), 11, 30)
+        self.assertEquals(11, talk.time.hour)
         
     def test_get_talks_from_room(self):
         talks = Talk.get_talks_from_room(self.room1.key())
@@ -49,8 +49,8 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
     def test_get_talks_during_hour(self):
         talk= Talk.create_talk('Charla1', self.attendant_key)
         talk2= Talk.create_talk('Charla2', self.attendant_key)
-        talk.set_time(time(20)).put()
-        talk2.set_time(time(20)).put()
-        talks = Talk.get_talks_during_hour(20)
+        talk.set_time(time(11)).put()
+        talk2.set_time(time(11)).put()
+        talks = Talk.get_talks_during_hour(11)
         self.assertEquals("Charla1Charla2", talks[0].title + talks[1].title)
         
