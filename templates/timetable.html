@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="/static/styles/timetable.css" />
+
+<table id="board">
+<tr>
+<td>Horario</td>
+{% for room in rooms%}
+    <td>{{ room.name }}</td>
+{% endfor %}
+</tr>
+
+{% for hour in rows %}
+<tr>
+<td id="hour" >
+    {{ hour.hour }}
+</td>
+    {% for talk in hour.talks_by_room %}
+            <td id={{ talk.title }} >
+                    {% if talk.title %}
+                        {{ talk.title }} <br>
+                        <a class="talk-details" href="/talk/{{ talk.key.id }}">Editar</a> <br>
+                        {% if talk.speaker %}
+                            {{talk.speaker}}
+                        {% endif %}
+                    {% else %}
+                         <a class="talk-details" href="/talk/create/{{ hour.hour }}/{{ forloop.counter }}/">Crear</a>
+                    {%endif%}
+            </td>
+    {% endfor %}
+</tr>
+{% endfor %}
+</table>

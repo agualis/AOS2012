@@ -1,0 +1,11 @@
+<link rel="stylesheet" type="text/css" href="/static/styles/timetable.css" />
+
+{% block global_content %}
+    <form method="POST" action="{{ request.path }}"> 
+    <table>
+    {{ form }}
+    <tr><td><input type="submit" value"Guardar"></td></tr> 
+    </table>
+    </form>
+
+{% endblock %}

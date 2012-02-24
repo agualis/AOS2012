@@ -5,9 +5,10 @@ from django.utils.hashcompat import sha_constructor as sha
  
 from aos.users.user_model import User
 from aos.web_admin.role import Role
-from common_utils import JsonResponse, tokens
+from common_utils import tokens
 
 import logging, settings
+from aos.utils.json_utils import JsonResponse
 
 class PolicyError(Exception):
     pass
