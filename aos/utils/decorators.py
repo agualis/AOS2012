@@ -1,8 +1,3 @@
-'''
-Created on 16/06/2011
-
-@author: agualis
-'''
 from common_utils import TextPlainResponse
 from django.http import HttpResponseServerError
 import os
