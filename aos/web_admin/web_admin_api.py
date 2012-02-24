@@ -16,14 +16,18 @@ def init_app(request):
         User.create_admin('admin', 'admin')
         Room.init_rooms()
         if not Talk.all().count(1) > 0:
-            talk = Talk(title = 'Ejemplo1')
+            talk = Talk(title = 'Android')
             talk.set_room(Key.from_path('Room', 1))
             talk.set_time(time(11))
             talk.put()
-            talk = Talk(title = 'Ejemplo2')
+            talk = Talk(title = 'Kanban')
             talk.set_room(Key.from_path('Room', 2))
             talk.set_time(time(9))
             talk.put()
+        if not Attendant.all().count(1) > 0:
+            Attendant.create('Bill', 'Gates', 'bill@microsoft.com', 'Zaragoza', False).put()
+            Attendant.create('Steve', 'Jobs', 'steve@apple.com', 'Pamplona', True).put()
+
         return HttpResponse("App ready to rumble...", mimetype="text/plain")
 
 @authorize_web_access(UserIs(Role.ADMIN))

@@ -9,13 +9,11 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
     def setUp(self):
         self.init_testbed_for_datastore_tests()
         self.init_django_settings()
-      
-        self.attendant_key = Attendant(key_name = 'at1@gmail.com' , first_name='Ponente1', email= 'at1@gmail.com').put()
         self.room1 = Room(name = "sala1")
         self.room2 = Room(name = "sala2")
         room_key1 = self.room1.put()
         room_key2 = self.room2.put()
-        self.attendant_key = Attendant(key_name = 'at1@gmail.com' , first_name='Ponente1', email= 'at1@gmail.com').put()
+        self.attendant_key = Attendant.create('Ponente1', 'Apellido1', 'asistente1@aos.com', 'Zaragoza', False).put()
         Talk(title = 'Titulo1', speaker = self.attendant_key, room = room_key1).put()
         Talk(title = 'Titulo2', speaker = self.attendant_key, room = room_key2).put()
         Talk(title = 'Titulo3', speaker = self.attendant_key, room = room_key1).put()
@@ -32,7 +30,7 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
         
     def test_create_talk(self):
         talk = Talk.create_talk('Titulo5', self.attendant_key)
-        self.assertEquals('at1@gmail.com', talk.speaker.email)
+        self.assertEquals('asistente1@aos.com', talk.speaker.email)
         
     def test_add_room_to_talk(self):
         talk = Talk.add_room_to_talk(self.talk_key_4.id(), self.room1.key())

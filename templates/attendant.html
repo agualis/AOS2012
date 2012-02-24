@@ -1,8 +1,13 @@
 {% extends "includes/base.html" %}{% load i18n %}
 
 {% block global_content %}
-    <form method="POST" action="/attendant"> 
-		Nombre: <input type='text' name='first_name'/>
+    <form method="POST" action="/attendant_response"><br/>
+		Nombre: <input type='text' name='first_name'/><br/>
+		Apellidos: <input type='text' name='last_name'/><br/>
+		Email: <input type='text' name='email'/><br/>
+		City: <input type='text' name='city'/><br/>
+		Catering: <input type="checkbox"  name='catering'/><br/>
+        <input type="submit" name="enviar" />
 	</form>
 
 {% endblock %}
