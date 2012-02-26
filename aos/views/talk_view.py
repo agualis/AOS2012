@@ -27,22 +27,21 @@ def create_talk(request, hour, room_id):
     room = Room.get_by_id(int(room_id))
     talk = Talk(title = 'New Talk', room = room, hour = int(hour))
     if request.method == "GET":
-        return show_talk_form_to_edit(request, talk)
+        return show_talk_form_to_edit(request, TalkForm(instance=talk))
     else:
         return save_talk_form(request, talk)
     #url = reverse('/talk', kwargs ={'room': talk.room, 'hour': talk.hour})
     #return HttpResponseRedirect(url)
 
 
-def show_talk_form_to_edit(request, talk):
-    form = TalkForm(instance=talk)
-    return render_to_response('talk.html',{'form': form})
+def show_talk_form_to_edit(request, form):
+    #form = TalkForm(instance=talk)
+    return render_to_response('talk.html',{'form': form, 'action': request.path})
 
 def save_talk_form(request, talk=None):
     form = TalkForm(request.POST, instance=talk) 
     if not form.is_valid():
-        return render_to_response('talk.html',
-                                   {'form': form})
+        return show_talk_form_to_edit(request, form)
     talk = form.save(commit=False) 
     talk.put()
     return HttpResponseRedirect('/timetable')
@@ -50,7 +49,7 @@ def save_talk_form(request, talk=None):
 def edit_talk(request, talk_id=None):
     talk = Talk.get_by_id(int(talk_id))
     if request.method == "GET":
-        return show_talk_form_to_edit(request, talk)
+        return show_talk_form_to_edit(request, TalkForm(instance=talk))
     else:
         return save_talk_form(request, talk)
         
