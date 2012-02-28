@@ -1,4 +1,5 @@
 from google.appengine.ext import db
+from django.core.validators import email_re
 
 class Attendant(db.Model):
     first_name = db.StringProperty(required=True)
@@ -12,11 +13,29 @@ class Attendant(db.Model):
 
     # http://stackoverflow.com/questions/843580/writing-a-init-function-to-be-used-in-django-model
     def create(first_name, last_name, email, city, catering):
-        return Attendant(key_name=email,
-    			 first_name=first_name,
-    			 last_name=last_name,
-    			 email=email,
-    			 city=city,
-    			 catering=catering)
+	if is_valid_email(email):
+	        return Attendant(key_name=email,
+    				 first_name=first_name,
+    				 last_name=last_name,
+    				 email=email,
+	    			 city=city,
+    				 catering=catering)
+	else:
+		raise ExMailError('mail is not valid')
     
     create = staticmethod(create)
+
+
+class ExMailError(Exception):
+	def __init__(self, value):
+		self.value = value
+	def __str__(self):
+		return repr(self.value)
+
+
+
+   	
+def is_valid_email(email):
+#    return True if email_re.match(email) else False
+    return email_re.match(email)
+
