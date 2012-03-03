@@ -43,14 +43,9 @@ class AttendantTestCase(unittest.TestCase, TestBedInitializer):
     	self.assertEquals(True,db_attendant.catering)
 	
     def test_create_attendance_constructor_error_mail(self):
-	try:
-	    	attendant = Attendant.create(
-    				'AsistenteError',
-    				'ApellidoError',
-    				'pepillo.com',
-	    			'ZaragozaError',
-    				False)
-		self.assertTrue(False, "email shouldn't be valid")
-	except attendant_model.ExMailError:
-		self.assertTrue(True)
-
+        self.assertRaises(attendant_model.ExMailError, Attendant.create,
+                    'AsistenteError',
+                    'ApellidoError',
+                    'pepillo.com',
+                    'ZaragozaError',
+                    False)
