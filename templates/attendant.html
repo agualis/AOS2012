@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/static/styles/timetable.css" />
 
-{% block global_content %}
+
     <form method="POST" action="{{ action }}"> 
     <table>
     {{ form }}
@@ -8,4 +8,34 @@
     </table>
     </form>
 
-{% endblock %}
+<script type="text/javascript" src="/static/scripts/jquery.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
+	<!--
+	$().ready(function() {
+		$('form').validate({
+			rules: {
+				'email': {
+					required:true,
+					email:true
+				},
+				first_name:{
+					required:true
+				}
+			},
+		   messages: {
+		     'email': {
+		       required: 'Obligatorio',
+		       email: 'Formato de email incorrecto'
+		     },
+		     first_name: {
+		     	required: 'Obligatorio'
+		     }
+		   },
+		   debug: true
+
+		});
+	});
+	// -->
+</script>

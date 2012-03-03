@@ -3,12 +3,12 @@ from django.core.validators import email_re
 from google.appengine.api import urlfetch
 
 class Attendant(db.Model):
-    first_name = db.StringProperty(required=True)
-    last_name = db.StringProperty(required=True)
+    first_name = db.StringProperty(verbose_name='Nombre', required=True)
+    last_name = db.StringProperty(verbose_name='Apellidos',required=True)
     email = db.EmailProperty(required=True)
-    twitter_id = db.StringProperty(default='')
+    twitter_id = db.StringProperty(verbose_name='Twitter',default='')
     twitter_avatar = db.BlobProperty()
-    city = db.StringProperty(required=True)
+    city = db.StringProperty(verbose_name='Ciudad',required=True)
     catering = db.BooleanProperty(default=False)
     
     
