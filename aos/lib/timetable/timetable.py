@@ -1,7 +1,6 @@
 from aos.models.talk_model import Talk
 from aos.models.room_model import Room
 from aos.lib.timetable.hour_row import HourRow
-import logging
 
 class Timetable():
     grid = {}
@@ -31,3 +30,15 @@ class Timetable():
                 row.add_talk(self.grid[hour][room.name])
             hour_rows.append(row)
         return hour_rows
+    
+    def get_talks(self):
+        return Talk.all().fetch(1000)
+
+    
+    def get_talks_json(self):
+        result  = {}
+        for talk in self.get_talks():
+            result[talk.title] = talk.to_json()
+        return result
+    
+    

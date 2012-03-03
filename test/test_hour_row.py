@@ -1,5 +1,6 @@
 import unittest
-from common_utils.test import TestBedInitializer
+from aos.lib.common_utils.test_utils import TestBedInitializer
+
 from aos.lib.timetable.hour_row import HourRow
 from aos.models.talk_model import Talk
 

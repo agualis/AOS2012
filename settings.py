@@ -1,4 +1,3 @@
-# Django settings for frogtek project.
 import os
 import logging
 DEBUG = True
@@ -55,7 +54,7 @@ MIDDLEWARE_CLASSES = (
 )
 SESSION_COOKIE_AGE = 1800 #half hour in seconds
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-SESSION_ENGINE = 'common_utils.sessions'
+SESSION_ENGINE = 'aos.lib.common_utils.sessions'
 
 LOGIN_URL = '/login'
 ROOT_URLCONF = 'urls'

@@ -2,8 +2,8 @@ from google.appengine.ext import db
 from django.utils import simplejson as json 
 from google.appengine.ext.db import BadValueError
 from google.appengine.api import datastore
+from aos.lib.common_utils import get_random_identifier
 
-from common_utils import get_random_identifier
 
 class Error(Exception):
     def type(self):

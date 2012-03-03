@@ -1,14 +1,14 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from aos.models.attendant_model import Attendant
 from django.shortcuts import render_to_response
 from google.appengine.ext.db import djangoforms
-import logging
 from django.core.exceptions import ValidationError
+import logging
 
 class AttendantForm(djangoforms.ModelForm):
     class Meta:
         model = Attendant
-        exclude = ['twitter_avatar']
+        exclude = ['twitter_avatar', 'user']
         
     def save(self, commit=True):
         data = self.cleaned_data
@@ -18,7 +18,7 @@ class AttendantForm(djangoforms.ModelForm):
     
     def clean(self):
         if not Attendant.is_valid_email(self.data['email']):
-             raise ValidationError("Invalid email!")
+            raise ValidationError("Invalid email!")
         return super(AttendantForm, self).clean()
 
 def create_attendant(request):
@@ -34,25 +34,12 @@ def save_attendant_form(request, attendant=None):
     form = AttendantForm(request.POST, instance=attendant) 
     if not form.is_valid():
         return show_attendant_form_to_edit(request, form)
-    attendant = form.save(commit=False) 
+    attendant = form.save(commit=False)
+    request.session['user'] = attendant.create_user() 
+    if attendant.speaker:
+        attendant.set_as_speaker()
     attendant.put()
-    return HttpResponse('Registro completado')
-
-
-def create_attendant_response(request):	
-    first_name = request.POST['first_name'][:20]
-    last_name = request.POST['last_name'][:20]
-    email = request.POST['email'][:20]
-    city = request.POST['city'][:20]
-    catering = request.POST.has_key('catering')
-
-    try:
-        attendant = Attendant.create(first_name, last_name, email, city, catering)
-        ok = attendant.put()
-
-        return HttpResponse('Creado Attendant ' + first_name + ' ok' )
-    except Exception, e:
-        return HttpResponse('Creado Attendant ' + first_name + ' err')
+    return HttpResponseRedirect("/timetable")
 
 def get_avatar(request):
     if request.method == 'GET':

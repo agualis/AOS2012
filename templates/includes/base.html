@@ -21,11 +21,13 @@
 			<div class="top">&nbsp;</div><!-- end of top-->
             
                 {% block common_header %}
+                    <b>AOS2012</b>
                     {% if user %}
                         {{ user.user_id }}
-                        [<a href="{% url aos.users.authentication.logout %}"><b>sign out</b></a>]
+                        [<a href="{% url aos.lib.security.authentication.logout %}"><b>log out</b></a>]
                     {% else %}
-                        [<a href="{% url aos.users.authentication.login %}"><b>sign in</b></a>]
+                        [<a href="{% url aos.lib.security.authentication.login %}"><b>log in</b></a>]
+                        [<a href="/attendant"><b>registro</b></a>] 
                     {% endif %}
                 {% endblock common_header %}
             

@@ -1,6 +1,5 @@
 {% extends "includes/base.html" %}{% load i18n %}
 
-
 {% block stylesheets2 %}
 <link rel="stylesheet" type="text/css" href="/static/styles/timetable.css" />
 {% endblock stylesheets2 %}
@@ -38,9 +37,14 @@ var timetable = new Timetable();
                                 <img src='attendant/avatar?email={{ talk.speaker.email }}'></img>
                             </div>
                         {% endif %}
-                        <a class="talk-details" href="/talk/{{ talk.key.id }} " onclick="timetable.addTalk(this,'#talk'); return false;">Editar</a> <br>
+                        {% if user.can_edit %}
+                            <a class="talk-details" href="/talk/{{ talk.key.id }} " onclick="timetable.addTalk(this,'#talk'); return false;">Editar</a> <br>
+                        {% endif %}
                     {% else %}
-                         <a class="talk-details" href="/talk/new/{{ hour.hour }}/{{ forloop.counter }}/" onclick="timetable.addTalk(this,'#talk'); return false;">Crear</a>
+                        {% if user.is_admin %}
+                            <a class="talk-details" href="/talk/new/{{ hour.hour }}/{{ forloop.counter }}/" onclick="timetable.addTalk(this,'#talk'); return false;">Crear</a>
+                        {% endif %}
+
                     {%endif%}
             </td>
     {% endfor %}

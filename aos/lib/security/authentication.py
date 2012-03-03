@@ -3,46 +3,12 @@ from django.http import HttpResponseRedirect, HttpResponseServerError, HttpRespo
 from django.views.generic.simple import direct_to_template
 from django.utils.hashcompat import sha_constructor as sha
  
-from aos.users.user_model import User
-from aos.web_admin.role import Role
-from common_utils import tokens
-
+from aos.models.user_model import User, Role
 import logging, settings
-from aos.utils.json_utils import JsonResponse
+from aos.lib.security.policy import PolicyError
+from aos.lib.security import tokens
+from aos.lib.common_utils.json_utils import JsonResponse
 
-class PolicyError(Exception):
-    pass
-
-class AuthorizationPolicy(object):
-    def __init__(self, **kwds):
-        self._kwds = kwds
-    
-    def get(self, key):
-        return self._kwds.get(key, None) if self._kwds else None
-    
-    def pop(self, key):
-        return self._kwds.pop(key, None) if self._kwds else None
-
-    def permits(self, user, request):
-        """Return True if the request can be served for the given user. 
-        
-        Subclasses are encouraged to save any objects retrieved from the 
-        database in the request.
-        """
-        return False
-
-    
-class UserTest(AuthorizationPolicy):
-    def permits(self, user, request):
-        method = self.pop('method')
-        return method and method(user, **self._kwds)
-
-def UserIs(role):
-    return UserTest(method=User.has_role, role=role)
-                        
-def UserIsUser():
-    return UserTest(User.is_user)
-        
 def authorize_web_access(policy=None, login_allowed=True, ajax_call= False):
     '''
         Checks if there is a valid session and the current user has privileges to open a view
@@ -56,7 +22,7 @@ def authorize_web_access(policy=None, login_allowed=True, ajax_call= False):
     def decorator(view):
         def gen_view(request, *args, **kwargs):
             user = request.session.get('user')
-            if not user:
+            if not user or (policy and not policy.permits(user, request, *args, **kwargs)):
                 return redirect_to_login_if_allowed(request, login_allowed, ajax_call)
             try:
                 if policy and not policy.permits(user, request, *args, **kwargs):
@@ -102,7 +68,7 @@ def login(request, return_url='/'):
                 if passhash and (sha(token + user.passhash).hexdigest() == passhash):
                     request.session['user'] = user
                     if user.has_role(Role.ADMIN) and (not return_url or return_url=='/'):
-                        return_url = '/admin'
+                        return_url = '/timetable'
                     else :
                         return_url = return_url or '/'
                     return JsonResponse({'return_url': return_url})
@@ -125,4 +91,4 @@ def login(request, return_url='/'):
         
 def logout(request):
     request.session.delete()
-    return direct_to_template(request, 'home.html', {})   
+    return HttpResponseRedirect("/")
