@@ -33,6 +33,11 @@ var timetable = new Timetable();
                         {% if talk.speaker %}
                             {{talk.speaker}} <br>
                         {% endif %}
+                        {% if talk.speaker.twitter_id %}
+                            <div>
+                                <img src='attendant/avatar?email={{ talk.speaker.email }}'></img>
+                            </div>
+                        {% endif %}
                         <a class="talk-details" href="/talk/{{ talk.key.id }} " onclick="timetable.addTalk(this,'#talk'); return false;">Editar</a> <br>
                     {% else %}
                          <a class="talk-details" href="/talk/new/{{ hour.hour }}/{{ forloop.counter }}/" onclick="timetable.addTalk(this,'#talk'); return false;">Crear</a>
