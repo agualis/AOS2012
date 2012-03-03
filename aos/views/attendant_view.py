@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from aos.models.attendant_model import Attendant
 from django.shortcuts import render_to_response
 from google.appengine.ext.db import djangoforms
+import logging
+from django.core.exceptions import ValidationError
 
 class AttendantForm(djangoforms.ModelForm):
     class Meta:
@@ -13,6 +15,11 @@ class AttendantForm(djangoforms.ModelForm):
         if data.get('email'):
             self.cleaned_data['key_name'] = data.get('email')
             return super(AttendantForm, self).save()
+    
+    def clean(self):
+        if not Attendant.is_valid_email(self.data['email']):
+             raise ValidationError("Invalid email!")
+        return super(AttendantForm, self).clean()
 
 def create_attendant(request):
     if request.method == "GET":
