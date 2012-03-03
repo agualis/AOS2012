@@ -1,13 +1,11 @@
-{% extends "includes/base.html" %}{% load i18n %}
+<link rel="stylesheet" type="text/css" href="/static/styles/timetable.css" />
 
 {% block global_content %}
-    <form method="POST" action="/attendant_response"><br/>
-		Nombre: <input type='text' name='first_name'/><br/>
-		Apellidos: <input type='text' name='last_name'/><br/>
-		Email: <input type='text' name='email'/><br/>
-		City: <input type='text' name='city'/><br/>
-		Catering: <input type="checkbox"  name='catering'/><br/>
-        <input type="submit" name="enviar" />
-	</form>
+    <form method="POST" action="{{ action }}"> 
+    <table>
+    {{ form }}
+    <tr><td><input type="submit" value="Guardar" onclick="$(this).closest('form').submit();  return false;"></td></tr> 
+    </table>
+    </form>
 
 {% endblock %}

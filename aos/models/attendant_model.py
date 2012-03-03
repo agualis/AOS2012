@@ -5,7 +5,7 @@ class Attendant(db.Model):
     last_name = db.StringProperty(required=True)
     email = db.EmailProperty(required=True)
     city = db.StringProperty(required=True)
-    catering = db.BooleanProperty(required=True)
+    catering = db.BooleanProperty(default=False)
     
     def __unicode__(self):
         return self.first_name + ' ' + self.last_name
