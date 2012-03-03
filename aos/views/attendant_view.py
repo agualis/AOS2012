@@ -4,9 +4,6 @@ from aos.models.attendant_model import Attendant
 import settings
 from django.shortcuts import render_to_response
 
-from aos.models.shout_model import Shout
-from django.core.validators import email_re
-
 def create_attendant(request):
     return render_to_response('attendant.html', {})
 
@@ -19,14 +16,6 @@ def create_attendant_response(request):
     email = request.POST['email'][:20]
     city = request.POST['city'][:20]
     catering = request.POST.has_key('catering')
-
-    emailValido='puede'
-    if is_valid_email(email):
-        emailValido='si'
-    else:
-        emailValido='no'
-
-
 
 
     try:

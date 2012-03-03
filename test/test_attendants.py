@@ -41,3 +41,11 @@ class AttendantTestCase(unittest.TestCase, TestBedInitializer):
     	self.assertEquals('Apellido3',db_attendant.last_name)
     	self.assertEquals('Zaragoza3',db_attendant.city)
     	self.assertEquals(True,db_attendant.catering)
+	
+    def test_create_attendance_constructor_error_mail(self):
+        self.assertRaises(attendant_model.ExMailError, Attendant.create,
+                    'AsistenteError',
+                    'ApellidoError',
+                    'pepillo.com',
+                    'ZaragozaError',
+                    False)
