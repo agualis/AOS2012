@@ -25,9 +25,12 @@ def init_app(request):
             talk.set_time(time(9))
             talk.put()
         if not Attendant.all().count(1) > 0:
-            Attendant.create('Bill', 'Gates', 'bill@microsoft.com', 'Zaragoza', False).put()
-            Attendant.create('Steve', 'Jobs', 'steve@apple.com', 'Pamplona', True).put()
-
+            bill = Attendant.create('Bill', 'Gates', 'bill@microsoft.com', 'Zaragoza', False)
+            bill.twitter_id = 'fbgblog'
+            bill.put()
+            richard = Attendant.create('Richard', 'Stallman', 'richard@gnu.org', 'Pamplona', True)
+            richard.twitter_id = 'GNUplusLINUX'
+            richard.put()
         return HttpResponse("App ready to rumble...", mimetype="text/plain")
 
 @authorize_web_access(UserIs(Role.ADMIN))
