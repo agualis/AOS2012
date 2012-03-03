@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     #views
 	(r'^attendant$', 'aos.views.attendant_view.create_attendant'),
 	(r'^attendant_response$', 'aos.views.attendant_view.create_attendant_response'),
+	(r'^attendant/avatar/?$', 'aos.views.attendant_view.get_avatar'),
 	(r'^timetable$', 'aos.views.timetable_view.show_timetable'),
 	(r'^talk/new/(?P<hour>(\d+))/(?P<room_id>(\d+))/?$', 'aos.views.talk_view.create_talk'),
 	(r'^talk/(?P<talk_id>(\d+))$', 'aos.views.talk_view.edit_talk'),

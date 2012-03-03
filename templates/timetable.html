@@ -1,5 +1,18 @@
-<link rel="stylesheet" type="text/css" href="/static/styles/timetable.css" />
+{% extends "includes/base.html" %}{% load i18n %}
 
+
+{% block stylesheets2 %}
+<link rel="stylesheet" type="text/css" href="/static/styles/timetable.css" />
+{% endblock stylesheets2 %}
+
+{% block scripts2 %}
+<script type="text/javascript" src="/static/src/Timetable.js"></script>
+<script type="text/javascript">
+var timetable = new Timetable();
+</script>
+{% endblock scripts2 %}
+
+{% block global_content %}
 <table id="board">
 <tr>
 <td>Horario</td>
@@ -17,15 +30,26 @@
             <td id={{ talk.title }} >
                     {% if talk.title %}
                         {{ talk.title }} <br>
-                        <a class="talk-details" href="/talk/{{ talk.key.id }}">Editar</a> <br>
                         {% if talk.speaker %}
-                            {{talk.speaker}}
+                            {{talk.speaker}} <br>
                         {% endif %}
+                        {% if talk.speaker.twitter_id %}
+                            <div>
+                                <img src='attendant/avatar?email={{ talk.speaker.email }}'></img>
+                            </div>
+                        {% endif %}
+                        <a class="talk-details" href="/talk/{{ talk.key.id }} " onclick="timetable.addTalk(this,'#talk'); return false;">Editar</a> <br>
                     {% else %}
-                         <a class="talk-details" href="/talk/create/{{ hour.hour }}/{{ forloop.counter }}/">Crear</a>
+                         <a class="talk-details" href="/talk/new/{{ hour.hour }}/{{ forloop.counter }}/" onclick="timetable.addTalk(this,'#talk'); return false;">Crear</a>
                     {%endif%}
             </td>
     {% endfor %}
 </tr>
 {% endfor %}
 </table>
+
+<div id="talk" >
+
+</div>
+{% endblock global_content%}
+

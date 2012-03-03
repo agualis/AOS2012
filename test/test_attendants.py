@@ -12,6 +12,11 @@ class AttendantTestCase(unittest.TestCase, TestBedInitializer):
     def setUp(self):
         self.init_django_settings()
         self.init_testbed_for_datastore_tests()
+        self.init_for_url_fetch_tests()
+        
+        attendant = Attendant.create(email='billgates@microsoft.com', last_name='Gates', first_name='Bill', city='Zaragoza3', catering=True)
+        attendant.twitter_account = "@Billgates"
+        attendant.put()
 
     def test_create_attendance_constructor(self):
     	attendant = Attendant.create(
@@ -41,3 +46,22 @@ class AttendantTestCase(unittest.TestCase, TestBedInitializer):
     	self.assertEquals('Apellido3',db_attendant.last_name)
     	self.assertEquals('Zaragoza3',db_attendant.city)
     	self.assertEquals(True,db_attendant.catering)
+	
+    def test_create_attendance_constructor_error_mail(self):
+        self.assertRaises(attendant_model.ExMailError, Attendant.create,
+                    'AsistenteError',
+                    'ApellidoError',
+                    'pepillo.com',
+                    'ZaragozaError',
+                    False)
+
+    def test_get_twitter_avatar(self):
+        attendant = Attendant.create(email='asistente3@aos.com',
+                            last_name='Apellido3',
+                         first_name='Asistente3',
+                         city='Zaragoza3',
+                         catering=True)
+        attendant.twitter_id = '@gualison'
+        attendant.fetch_twitter_avatar()
+        self.assertIsNotNone(attendant.twitter_avatar)
+        

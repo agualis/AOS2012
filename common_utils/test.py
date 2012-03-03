@@ -8,6 +8,13 @@ class TestBedInitializer():
         # Next, declare which service stubs you want to use.
         self.testbed.init_datastore_v3_stub()
         
+    def init_for_url_fetch_tests(self):
+        self.testbed.init_urlfetch_stub()
+        
+    def init_for_mail_tests(self):
+        self.testbed.init_mail_stub()
+        self.mail_stub = self.testbed.get_stub(testbed.MAIL_SERVICE_NAME)
+        
     def init_django_settings(self):
         import settings
         import os
