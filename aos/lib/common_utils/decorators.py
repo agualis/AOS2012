@@ -1,5 +1,5 @@
-from common_utils import TextPlainResponse
 from django.http import HttpResponseServerError
+from aos.lib.common_utils import TextPlainResponse
 import os
 import traceback
 

@@ -1,11 +1,12 @@
 from google.appengine.ext import db
+from aos.lib.common_utils.json_utils import Serializable
 from aos.models.room_model import Room
-from aos.utils.json_utils import Serializable
 from aos.models.attendant_model import Attendant
-from datetime import time
+from datetime import time, date
     
 class Talk(db.Model, Serializable):
     title = db.StringProperty(required=True)
+    date = db.DateProperty(default=date(2012, 06, 23))
     time= db.TimeProperty()
     hour = db.IntegerProperty(choices=[9,10,11,12])
     duration = db.IntegerProperty(default=1)

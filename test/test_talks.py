@@ -1,8 +1,9 @@
 import unittest
+from aos.lib.common_utils.test_utils import TestBedInitializer
 from aos.models.talk_model import Room, Talk
-from common_utils.test import TestBedInitializer
 from aos.models.attendant_model import Attendant
 from datetime import time
+import logging
 
 class TalksTestCase(unittest.TestCase, TestBedInitializer):
 
@@ -14,7 +15,9 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
         room_key1 = self.room1.put()
         room_key2 = self.room2.put()
         self.attendant_key = Attendant.create('Ponente1', 'Apellido1', 'asistente1@aos.com', 'Zaragoza', False).put()
-        Talk(title = 'Titulo1', speaker = self.attendant_key, room = room_key1).put()
+        self.talk1 = Talk(title = 'Titulo1', speaker = self.attendant_key, room = room_key1)
+        self.talk1.time = time(9,0)
+        self.talk1.put()
         Talk(title = 'Titulo2', speaker = self.attendant_key, room = room_key2).put()
         Talk(title = 'Titulo3', speaker = self.attendant_key, room = room_key1).put()
         self.talk_key_4 = Talk(title = 'Titulo4',  speaker = self.attendant_key).put()
@@ -51,4 +54,12 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
         talk2.set_time(time(11)).put()
         talks = Talk.get_talks_during_hour(11)
         self.assertEquals("Charla1Charla2", talks[0].title + talks[1].title)
+        
+    def test_serialize_to_json(self):
+        expected = {'duration': 1, 'speaker': {'city': u'Zaragoza', 'first_name': u'Ponente1', 'last_name': u'Apellido1', 'twitter_id': u'', 
+                                               'catering': False, 'email': u'asistente1@aos.com'}, 'room': {'name': u'sala1'}, 'date': '2012-06-23', 'time': '9:0', 'title': 'Titulo1'} 
+        logging.error("Talk json:  %s " %  self.talk1.to_json())
+        self.assertEqual(expected, self.talk1.to_json())
+        
+        
         

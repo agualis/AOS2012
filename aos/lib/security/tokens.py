@@ -1,20 +1,14 @@
 from google.appengine.ext import db
 from google.appengine.api import memcache
 
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse
 
-from common_utils.db import insert_with_random_key
-import common_utils
+import aos.lib.common_utils as common_utils
 
 from datetime import datetime, timedelta
 from random import choice
 import logging, time
-import traceback
-from common_utils import decode_client_data
-import hashlib
-
-
-from google.appengine.api import mail
+from aos.lib.common_utils.db import insert_with_random_key
 
 
 class Error(Exception):
@@ -83,11 +77,6 @@ class Token(db.Expando):
         
     def cache(self):
             memcache.set('tok_%s' % self.key().name(), self, (self.expires - datetime.utcnow()).seconds)        
-
-    def as_json(self):
-        return {'tok': self.key().name(),
-                'exp': common_utils.xml_time(self.expires),
-                'sec': self.secret}
     
 def purge(request):
     ''' 

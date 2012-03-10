@@ -1,7 +1,8 @@
 import unittest
+
+from aos.lib.common_utils.test_utils import TestBedInitializer
 from aos.models.talk_model import Room, Talk
 import logging
-from common_utils.test import TestBedInitializer
 from datetime import time
 
 class TalksTestCase(unittest.TestCase, TestBedInitializer):
@@ -27,4 +28,4 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
         
     def test_serialize_to_json(self):
         logging.error("Room json:  %s " %  self.room1.to_json())
-        logging.error("Talk json:  %s " %  self.room1.talks[0].to_json())
+        self.assertEqual({'name': 'sala1'}['name'] , self.room1.to_json()['name'])

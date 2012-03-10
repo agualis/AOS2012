@@ -1,5 +1,5 @@
 from google.appengine.ext import db
-from aos.utils.json_utils import Serializable
+from aos.lib.common_utils.json_utils import Serializable
 
 class Room(db.Model, Serializable):
     name = db.StringProperty(required=True)

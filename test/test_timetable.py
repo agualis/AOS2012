@@ -1,8 +1,9 @@
 import unittest
+from aos.lib.common_utils.test_utils import TestBedInitializer
 from aos.models.talk_model import Room, Talk
-from common_utils.test import TestBedInitializer
 from datetime import time
 from aos.lib.timetable.timetable import Timetable
+import logging
 
 class TimetableTestCase(unittest.TestCase, TestBedInitializer):
 
@@ -43,3 +44,17 @@ class TimetableTestCase(unittest.TestCase, TestBedInitializer):
             if row.hour == 10:
                 self.assertEquals(row.talks_by_room()[0], None)
                 self.assertEquals(row.talks_by_room()[1], self.talk)                        
+                
+    def test_timetable_json(self):
+        timetable = Timetable()
+        timetable.add_talk(self.talk)
+        self.talk.put()
+        talk2 = Talk(title = 'Titulo2', room = self.room2).put()
+
+        
+        talks = timetable.get_talks()
+        
+        talks_json = timetable.get_talks_json()
+        logging.error("AG:  %s " %  talks_json)
+        
+        

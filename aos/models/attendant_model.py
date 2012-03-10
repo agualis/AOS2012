@@ -1,8 +1,10 @@
 from google.appengine.ext import db
+from aos.lib.common_utils.json_utils import Serializable
 from django.core.validators import email_re
 from google.appengine.api import urlfetch
+from aos.models.user_model import User
 
-class Attendant(db.Model):
+class Attendant(db.Model, Serializable):
     first_name = db.StringProperty(verbose_name='Nombre', required=True)
     last_name = db.StringProperty(verbose_name='Apellidos',required=True)
     email = db.EmailProperty(required=True)
@@ -10,7 +12,10 @@ class Attendant(db.Model):
     twitter_avatar = db.BlobProperty()
     city = db.StringProperty(verbose_name='Ciudad',required=True)
     catering = db.BooleanProperty(default=False)
+    user = db.ReferenceProperty(reference_class= User, collection_name='attendant')
+    speaker = db.BooleanProperty(default=False)
     
+    json_excluded = ['user']
     
     def __unicode__(self):
         return self.first_name + ' ' + self.last_name
@@ -40,6 +45,19 @@ class Attendant(db.Model):
         if response.status_code == 200:
             self.twitter_avatar = response.content
             self.put()
+            
+    def create_user(self):
+        user = User.create_web_user(self.email, 'patata')
+        self.user = user
+        return user
+    
+    def set_as_speaker(self):
+        if not self.user:
+            self.create_user()
+        self.user.set_as_speaker()
+        self.user.put()
+        self.speaker = True
+
             
 class ExMailError(Exception):
     def __init__(self, value):
