@@ -38,7 +38,7 @@ class Timetable():
     def get_talks_json(self):
         result  = {}
         for talk in self.get_talks():
-            result[talk.title] = talk.to_json()
+            result[talk.key().id()] = talk.to_json()
         return result
     
     
