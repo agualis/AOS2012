@@ -1,13 +1,15 @@
 {% extends "includes/base.html" %}{% load i18n %}
 
-
+{% block global_content %}
     <form method="POST" action="{{ action }}"> 
     <table>
     {{ form }}
     <tr><td><input type="submit" value="Guardar" onclick="$(this).closest('form').submit();  return false;"></td></tr> 
     </table>
     </form>
+{% endblock %}
 
+{% block scripts2 %}
 <script type="text/javascript" src="/static/scripts/jquery.js"></script>
 <script type="text/javascript" src="/static/scripts/jquery.validate.min.js"></script>
 
@@ -33,9 +35,9 @@
 		     	required: 'Obligatorio'
 		     }
 		   },
-		   debug: true
-
 		});
 	});
 	// -->
 </script>
+
+{% endblock %}
