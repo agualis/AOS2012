@@ -7,5 +7,37 @@
     <tr><td><input type="submit" value="Guardar" onclick="$(this).closest('form').submit();  return false;"></td></tr> 
     </table>
     </form>
+{% endblock %}
+
+{% block scripts2 %}
+<script type="text/javascript" src="/static/scripts/jquery.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
+	<!--
+	$().ready(function() {
+		$('form').validate({
+			rules: {
+				'email': {
+					required:true,
+					email:true
+				},
+				first_name:{
+					required:true
+				}
+			},
+		   messages: {
+		     'email': {
+		       required: 'Obligatorio',
+		       email: 'Formato de email incorrecto'
+		     },
+		     first_name: {
+		     	required: 'Obligatorio'
+		     }
+		   },
+		});
+	});
+	// -->
+</script>
 
 {% endblock %}
