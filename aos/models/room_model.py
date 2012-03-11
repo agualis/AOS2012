@@ -7,13 +7,19 @@ class Room(db.Model, Serializable):
     
     def __unicode__(self):
         return self.name
+    
+    @classmethod
+    def create_room(cls, room_id, room_name):
+        Room(key_name = room_id, name = room_name).put()
 
     room_names = ['sala1', 'sala2', 'sala3', 'sala4']
     @classmethod
     def init_rooms(cls):
+        i = 1
         if not cls.all().count(1) > 0:
             for room_name in cls.room_names:
-                Room(name = room_name).put()
+                cls.create_room(str(i), room_name)
+                i += 1
             
     @classmethod
     def get_rooms(cls):
