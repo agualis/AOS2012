@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response
 from google.appengine.ext.db import djangoforms
 from django.core.exceptions import ValidationError
 import logging
+from django import forms
 
 class AttendantForm(djangoforms.ModelForm):
     class Meta:
@@ -55,4 +56,5 @@ def get_avatar(request):
             else:
                 return HttpResponse('No twitter account')
         else:
-            return HttpResponse('Invalid email')    
+            return HttpResponse('Invalid email')
+    

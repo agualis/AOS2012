@@ -3,6 +3,8 @@ from aos.lib.common_utils.json_utils import Serializable
 from django.core.validators import email_re
 from google.appengine.api import urlfetch
 from aos.models.user_model import User
+import logging
+import json
 
 class Attendant(db.Model, Serializable):
     first_name = db.StringProperty(required=True)
@@ -52,12 +54,54 @@ class Attendant(db.Model, Serializable):
         return user
     
     def set_as_speaker(self):
-        if not self.user:
+        if not hasattr(self, 'user') or self.user == None:
             self.create_user()
         self.user.set_as_speaker()
         self.user.put()
         self.speaker = True
-
+        
+    def remove_as_speaker(self):
+        self.speaker = False
+        
+    @classmethod
+    def get_speakers(self):
+        return Attendant.all().filter('speaker', True).fetch(100)
+    
+    @classmethod    
+    def get_selection_array(cls):
+        attendants = Attendant.all().fetch(1000)
+        names = []
+        emails = []
+        twitters = []
+        for attendant in attendants:
+            names.append(attendant.get_name_selection_json())
+            emails.append(attendant.get_mail_selection_json())
+            if attendant.twitter_id:
+                    twitters.append(attendant.get_twitter_selection_json())
+        result = names
+        result.extend(emails)
+        result.extend(twitters)
+        return result
+        
+    def get_mail_selection_json(self):
+        return { 'value': self.key().name(), 'label': self.email, 'category': "Email" }
+    
+    def get_name_selection_json(self):
+        return {'value': self.key().name(), 'label': self.__unicode__(), 'category': "Nombre" }
+    
+    def get_twitter_selection_json(self):
+        if self.twitter_id:
+            return {'value': self.key().name(), 'label': self.twitter_id, 'category': "Twitter" }
+        else:
+            return None
+    
+    @classmethod
+    def get_speakers_json(cls):
+        result= []
+        for speaker in cls.get_speakers():
+            result.append(speaker.to_json())
+        return result
+    
             
 class ExMailError(Exception):
     def __init__(self, value):

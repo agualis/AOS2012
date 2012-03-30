@@ -10,9 +10,9 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
     def setUp(self):
         self.init_testbed_for_datastore_tests()
         self.init_django_settings()
-        self.room1 = Room.create_room(1, "sala1")
+        self.room1 = Room.create_room('1', 'sala1')
         room_key1 = self.room1.put()
-        room_key2 = Room.create_room(1, "sala2").put()
+        room_key2 = Room.create_room('2', 'sala2').put()
         Talk(title = 'Titulo1',  time = time(8), room = room_key1).put()
         Talk(title = 'Titulo2',  time = time(20), room = room_key1).put()
         Talk(title = 'Titulo3',  time = time(15), room = room_key2).put()
