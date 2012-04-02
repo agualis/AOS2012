@@ -9,7 +9,7 @@ from django import forms
 class AttendantForm(djangoforms.ModelForm):
     class Meta:
         model = Attendant
-        exclude = ['twitter_avatar', 'user']
+        exclude = ['twitter_avatar', 'user', 'speaker']
         
     def save(self, commit=True):
         data = self.cleaned_data
