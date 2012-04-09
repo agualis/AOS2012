@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 <title>KitAOS</title>
-<link type="text/css" rel="stylesheet" href="/static/styles/style.css"/>
+<link type="text/css" rel="stylesheet" href="/static/styles/timetable.css"/>
 <script type="text/javascript" src="/static/scripts/iscroll.js"></script>
 <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -52,9 +52,9 @@ document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 2
 	<a href="#">KitAOS 2012</a>
 	<nav>
 		<ul class='mainMenu'>
-			<li><a id="aInfo" href="#"><img src="/static/img/info.svg" alt="Info"/></a></li>
-			<li><a id="aAgenda" href="#"><img src="/static/img/calendar.svg" alt="Agenda"/></a></li>
-			<li><a id="aUsers" href="#"><img src="/static/img/users.svg" alt="Asistentes"/></a></li>
+			<li><a id="aInfo" href="http://aos2012.agile-spain.org"><img src="/static/img/info.svg" alt="Info"/></a></li>
+			<li><a id="aAgenda" href="/timetable"><img src="/static/img/calendar.svg" alt="Agenda"/></a></li>
+			<li><a id="aUsers" href="/login"><img src="/static/img/users.svg" alt="Asistentes"/></a></li>
 			<li><a id="aNews" href="#"><img src="/static/img/news.svg" alt="Ahora"/></a></li>
 		</ul>
 	</nav>
@@ -67,15 +67,19 @@ document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 2
 				<li class="hour">{{ hour.hour }}:00h</li>
 				{% for talk in hour.talks_by_room %}
 					 {% if talk.title %}
-						<li id="{{ talk.title }}">
+						<li class="rowCentered" id="{{ talk.title }}">
 							<label>{{ talk.room.name }}</label>
-							<span>{{ talk.title }}</span>
-							{% if talk.speaker.twitter_id %}
-			      			 	<img src='attendant/avatar?email={{ talk.speaker.email }}'></img> 
-			                {% endif %}
-							 {% if talk.speaker %}
-				                 <span>{{talk.speaker}}</span>
-				             {% endif %}
+							<span>{{ talk.title }}</span><br />
+							{% if talk.speaker %}
+							<div class="speaker">
+								{% if talk.speaker.twitter_id %}
+				      			 	<img src='attendant/avatar?email={{ talk.speaker.email }}' /> 
+				      			{% else%}
+				      			 	<img src='static/img/no-user.png' />
+				                {% endif %}
+				                 <span class="speaker-name">{{talk.speaker}}</span>
+				            </div>
+				            {% endif %}
 						</li>
 					{% endif %}
 				{% endfor %}
