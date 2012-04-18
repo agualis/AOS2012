@@ -4,7 +4,7 @@ from django.core.validators import email_re
 from google.appengine.api import urlfetch
 from aos.models.user_model import User
 import logging
-import json
+import simplejson as json
 
 class Attendant(db.Model, Serializable):
     first_name = db.StringProperty(verbose_name='Nombre', required=True)

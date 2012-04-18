@@ -2,7 +2,7 @@ from aos.models.attendant_model import Attendant
 from django.shortcuts import render_to_response
 import logging
 from django.http import HttpResponseRedirect, HttpResponse
-import json
+import simplejson as json
 from aos.lib.common_utils.json_utils import JsonResponse
 from aos.lib.common_utils import TextPlainResponse
 from aos.lib.common_utils.decorators import catch_exceptions
