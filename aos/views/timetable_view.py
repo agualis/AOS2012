@@ -1,4 +1,3 @@
-import logging
 from django.shortcuts import render_to_response
 from aos.lib.timetable.timetable import Timetable
 from aos.models.room_model import Room

@@ -7,12 +7,13 @@ from aos.models.talk_model import Talk
 from aos.lib.common_utils.decorators import catch_exceptions
 from aos.lib.security.authentication import authorize_web_access
 from aos.lib.security.policy import AdminPolicy
+import logging
 
 @catch_exceptions
 #@authorize_web_access(AdminPolicy())
 def init_app(request):
     if request.method == 'GET':
-        User.create_admin('admin', 'admin').put()
+        User.create_admin('admin', 'aos').put()
         Room.init_rooms()
         if not Talk.all().count(1) > 0:
             talk = Talk(title = 'Android')

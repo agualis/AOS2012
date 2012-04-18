@@ -4,7 +4,7 @@ from aos.lib.timetable.hour_row import HourRow
 
 class Timetable():
     grid = {}
-    
+
     def __init__(self):
         for hour in Talk.get_talk_hours():
             room_dict = {}
