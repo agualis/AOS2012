@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     (r'^api/speakers', 'aos.api.phone_api.get_speakers'),
     
     #views
-    (r'^timetable/?$', 'aos.views.timetable_view.show_timetable'),
+    (r'^timetable/?$', 'aos.views.timetable_view.show_admin_timetable'),
 	(r'^attendant/?$', 'aos.views.attendant_view.create_attendant'),
 	(r'^attendant/avatar/?$', 'aos.views.attendant_view.get_avatar'),
 	(r'^talk/new/(?P<hour>(\d+))/(?P<room_id>(\d+))/?$', 'aos.views.talk_view.create_talk'),

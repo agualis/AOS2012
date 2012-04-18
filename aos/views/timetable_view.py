@@ -10,4 +10,11 @@ def show_timetable(request):
     timetable = Timetable()
     rooms = Room.get_rooms()
     hours = Talk.get_talk_hours()
+    return render_to_response('timetable_app.html', {'user': user, 'rooms': rooms, 'hours': hours, 'rows': timetable.get_rows_for_template()})
+
+def show_admin_timetable(request):
+    user = request.session.get('user')
+    timetable = Timetable()
+    rooms = Room.get_rooms()
+    hours = Talk.get_talk_hours()
     return render_to_response('timetable.html', {'user': user, 'rooms': rooms, 'hours': hours, 'rows': timetable.get_rows_for_template()})
