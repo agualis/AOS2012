@@ -7,6 +7,7 @@ from aos.models.talk_model import Talk
 from aos.lib.common_utils.decorators import catch_exceptions
 from aos.lib.security.authentication import authorize_web_access
 from aos.lib.security.policy import AdminPolicy
+import logging
 
 @catch_exceptions
 #@authorize_web_access(AdminPolicy())
@@ -14,7 +15,6 @@ def init_app(request):
     if request.method == 'GET':
         User.create_admin('admin', 'aos').put()
         Room.init_rooms()
-        """
         if not Talk.all().count(1) > 0:
             talk = Talk(title = 'Android')
             talk.set_room(Room.get_rooms()[0])
@@ -33,5 +33,4 @@ def init_app(request):
             richard.twitter_id = 'GNUplusLINUX'
             richard.set_as_speaker()
             richard.put()
-        """
         return HttpResponse("App ready to rumble...", mimetype="text/plain")

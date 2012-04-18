@@ -21,26 +21,33 @@
 			<div class="top">&nbsp;</div><!-- end of top-->
             
                 {% block common_header %}
-                    <b>AOS2012</b>
+                    <h1><b>AOS2012</b></h1>
+                    
+                    <h2>
                     {% if user %}
                         {{ user.user_id }}
                         [<a href="{% url aos.lib.security.authentication.logout %}"><b>log out</b></a>]
                     {% else %}
                         [<a href="{% url aos.lib.security.authentication.login %}"><b>log in</b></a>]
                         [<a href="/attendant"><b>registro</b></a>] 
+                        [<a href="/admin/speakers"><b>ponentes</b></a>] 
                     {% endif %}
+                    </h2>
                 {% endblock common_header %}
             
 				{% block global_content %}
                 {% endblock global_content %}
  			</div><!--  end of header-->
 	</div><!-- end of main -->
+	
+{% block scripts %}
+<script type="text/javascript" src="/static/scripts/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery-ui-1.8.18.custom.min.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery.sha1.js"></script>
+<script type="text/javascript" src="/static/scripts/login.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+{% endblock scripts %}
+{% block scripts2 %}{% endblock scripts2 %}
+	
 </body>	
 </html>
-{% block scripts %}
-	<script type="text/javascript" src="/static/scripts/jquery.js"></script>
-	<script type="text/javascript" src="/static/scripts/jquery.sha1.js"></script>
-	<script type="text/javascript" src="/static/scripts/login.js"></script>
-	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-    {% block scripts2 %}{% endblock scripts2 %}
-{% endblock scripts %}

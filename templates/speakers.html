@@ -1,0 +1,10 @@
+{% for speaker in speakers %}
+    <div id='{{ speaker.email }}' class="speaker">
+        <h3>{{speaker}}</h3>
+        <p><img src='/attendant/avatar?email={{ speaker.email }}'></img></p>
+        <p>@{{ speaker.twitter_id  }}</p>
+        <p>{{ speaker.email  }}</p>
+        <img src="/static/images/close.png" alt="delete" class="delete" />
+    </div>
+{% endfor %}
+

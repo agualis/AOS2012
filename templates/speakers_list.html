@@ -1,0 +1,116 @@
+{% extends "includes/base.html" %}{% load i18n %}
+
+{% block global_content %}
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/static/styles/jquery-ui-1.8.18.custom.css" />
+    
+<div class="speaker_search">
+    <h1><label for="search">Añadir Ponente:</label></h1>
+    <input id="search" />
+</div><!-- End demo -->
+
+<div id="speakers">
+    {% include 'speakers.html' %}    
+</div>
+
+{% endblock global_content %}
+
+{% block scripts2 %}
+<script>
+
+var speaker_mails = []; 
+
+$.widget( "custom.catcomplete", $.ui.autocomplete, {
+    _renderMenu: function( ul, items ) {
+        var self = this,
+            currentCategory = "";
+        $.each( items, function( index, item ) {
+            if ( item.category != currentCategory ) {
+                ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+                currentCategory = item.category;
+            }
+            self._renderItem( ul, item );
+        });
+    }
+});
+
+$(function() {
+    var attendants_array = {{attendants|safe}};
+    {% for speaker in speakers %}
+    speaker_mails.push('{{speaker.email}}');
+    {% endfor %}
+    
+    $( "#search" ).catcomplete({
+        delay: 0,
+        source: attendants_array,
+        select: function( event, ui ) {
+            create_speaker(ui)
+            return false;
+        }
+    });
+    
+    function create_speaker(ui) {
+    	if (is_speaker(ui.item.value, speaker_mails)){
+    		alert('Esta persona ya es ponente');
+    	} else{
+          $('<div></div>')
+         .html('¿Confirmas a <strong>' +  ui.item.label + '</strong> como ponente?')
+         .dialog({
+             resizable: true,
+             modal: true,
+             title: 'Añadir Ponente',
+             buttons: {     
+                 "Añadir": function() {
+                 	speaker_mails.push(ui.item.value);
+                     $( this ).dialog( "close" );
+                 	setSpeakerWithAjax(ui.item.value);
+                 },
+                 "Cancelar": function() {
+                     $( this ).dialog( "close" );
+                 }
+             }
+          });
+                                  
+           
+       }
+      }
+});
+    
+
+    $(function() {
+    	
+    	
+    	$('body').click(function(event) {
+    		   if ($(event.target).is('.speaker .delete')) {
+    			   var email = $(event.target).parent().attr('id');
+    	           speaker_mails.pop(email);
+    	           setSpeakerWithAjax(email, true);
+    	           $(this).parents(".speaker").animate({ opacity: 'hide' }, "slow");
+    		   }
+    	});
+      });    
+    
+    function is_speaker(email, speaker_mails){
+    	return jQuery.inArray(email, speaker_mails) != -1;
+    }
+    
+    function setSpeakerWithAjax(email, remove){
+    	if (remove == true) {
+    		url = '/speaker/remove';
+    	} else {
+    		url ='{% url aos.views.speakers_view.set_speaker %}';
+        }
+    	 $.ajax({
+             url: url,
+             type: 'POST',
+             data: {'email': email},
+             success: function(data) {
+             $('#speakers').html(data);
+             }
+   	     });
+    }
+   
+    </script>  
+     
+{% endblock scripts2 %}
