@@ -15,6 +15,8 @@ class AttendantForm(djangoforms.ModelForm):
         data = self.cleaned_data
         if data.get('email'):
             self.cleaned_data['key_name'] = data.get('email')
+            if data.get('twitter_id'):
+                self.cleaned_data['twitter_id'] = data.get('twitter_id')[1:]
             return super(AttendantForm, self).save()
     
     def clean(self):

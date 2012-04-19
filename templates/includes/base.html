@@ -25,12 +25,15 @@
                     
                     <h2>
                     {% if user %}
-                        {{ user.user_id }}
+                        {{ user.user_id }} <br>
+                        [<a href="/"><b>home</b></a>] 
+	                    {% if user.is_admin %}
+                            [<a href="/admin/speakers"><b>ponentes</b></a>] 
+	                    {% endif %}
                         [<a href="{% url aos.lib.security.authentication.logout %}"><b>log out</b></a>]
                     {% else %}
                         [<a href="{% url aos.lib.security.authentication.login %}"><b>log in</b></a>]
                         [<a href="/attendant"><b>registro</b></a>] 
-                        [<a href="/admin/speakers"><b>ponentes</b></a>] 
                     {% endif %}
                     </h2>
                 {% endblock common_header %}

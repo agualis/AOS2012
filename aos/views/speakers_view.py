@@ -1,18 +1,20 @@
 from aos.models.attendant_model import Attendant
 from django.shortcuts import render_to_response
 import logging
-from django.http import HttpResponseRedirect, HttpResponse
 import simplejson as json
-from aos.lib.common_utils.json_utils import JsonResponse
-from aos.lib.common_utils import TextPlainResponse
+from django.http import HttpResponseRedirect
 from aos.lib.common_utils.decorators import catch_exceptions
+from aos.lib.security.policy import AdminPolicy
+from aos.lib.security.authentication import authorize_web_access
 
+@catch_exceptions
+@authorize_web_access(AdminPolicy())
 def get_speakers_list(request):
     if request.method == 'GET':
         speakers = Attendant.get_speakers()
         return render_to_response('speakers_list.html', 
                                   {'attendants': json.dumps(Attendant.get_selection_array()), 
-                                   'speakers': speakers})
+                                   'speakers': speakers, 'user': request.session.get('user')})
     else:
         speakers = Attendant.get(request.POST.getlist('speakers'))
         
