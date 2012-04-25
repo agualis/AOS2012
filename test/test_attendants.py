@@ -60,7 +60,7 @@ class AttendantTestCase(unittest.TestCase, TestBedInitializer):
                          catering=True)
         attendant.twitter_id = '@gualison'
         attendant.fetch_twitter_avatar()
-        self.assertIsNotNone(attendant.twitter_avatar)
+        self.assertTrue(attendant.twitter_avatar != None)
         
     def test_to_json(self):
         expected = {'city': 'Zaragoza3', 'first_name': 'Bill', 'last_name': 'Gates', 'twitter_id': '', 'catering': True, 'email': u'billgates@microsoft.com', 'speaker': False}
