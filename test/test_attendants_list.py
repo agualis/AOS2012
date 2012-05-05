@@ -10,10 +10,10 @@ class AttendantTestCase(unittest.TestCase, TestBedInitializer):
     def setUp(self):
         self.init_django_settings()
         self.init_testbed_for_datastore_tests()
-        self.attendant = Attendant.create(email='isabel@folcloricas.es', last_name='Pantoja', first_name='Isabel', city='Sevilla', catering=False)
+        self.attendant = Attendant.create(email='isabel@folcloricas.es', last_name='Pantoja', first_name='Isabel', city='Sevilla', computers_needed=False)
         self.attendant.twitter_id = "@pantoja"
         self.attendant.put()
-        self.attendant2 = Attendant.create(email='willsmith@hollywood.com', last_name='Smith', first_name='Will', city='Los Angeles', catering=True)
+        self.attendant2 = Attendant.create(email='willsmith@hollywood.com', last_name='Smith', first_name='Will', city='Los Angeles', computers_needed=True)
         self.attendant2.put()
         
     def test_get_mail_selection_json(self):

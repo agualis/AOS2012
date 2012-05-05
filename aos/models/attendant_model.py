@@ -13,10 +13,9 @@ class Attendant(db.Model, Serializable):
     twitter_id = db.StringProperty(verbose_name='Twitter',default='')
     twitter_avatar = db.BlobProperty()
     city = db.StringProperty(verbose_name='Ciudad',required=True)
-    catering = db.BooleanProperty(default=False)
+    computers_needed = db.BooleanProperty(verbose_name='Necesita Ordenadores', default=False)
     user = db.ReferenceProperty(reference_class= User, collection_name='attendant')
     speaker = db.BooleanProperty(default=False)
-    
     json_excluded = ['user']
     
     def __unicode__(self):
@@ -24,14 +23,14 @@ class Attendant(db.Model, Serializable):
 
     # http://stackoverflow.com/questions/843580/writing-a-init-function-to-be-used-in-django-model
     @classmethod
-    def create(cls,first_name, last_name, email, city, catering):
+    def create(cls,first_name, last_name, email, city, computers_needed):
         if cls.is_valid_email(email):
             return Attendant(key_name=email,
     			 first_name=first_name,
     			 last_name=last_name,
     			 email=email,
     			 city=city,
-    			 catering=catering)
+    			 computers_needed=computers_needed)
         else:
             raise ExMailError('mail is not valid')
 

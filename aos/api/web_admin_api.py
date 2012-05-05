@@ -10,7 +10,7 @@ from aos.lib.security.policy import AdminPolicy
 import logging
 
 @catch_exceptions
-@authorize_web_access(AdminPolicy())
+#@authorize_web_access(AdminPolicy())
 def init_app(request):
     if request.method == 'GET':
         User.create_admin('admin', 'aos').put()

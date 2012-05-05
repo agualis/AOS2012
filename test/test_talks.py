@@ -58,7 +58,7 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
     def test_serialize_to_json(self):
         expected = {'room': {'name': u'sala1'}, 
                     'title': 'Titulo1', 'duration': 1, 
-                    'speaker': {'city': u'Zaragoza', 'first_name': u'Ponente1', 'last_name': u'Apellido1', 'twitter_id': u'', 'catering': False, 'speaker': False, 'email': u'asistente1@aos.com'}, 
+                    'speaker': {'city': u'Zaragoza', 'first_name': u'Ponente1', 'last_name': u'Apellido1', 'twitter_id': u'', 'computers_needed': False, 'speaker': False, 'email': u'asistente1@aos.com'}, 
                     'time': '9:0', 'date': '2012-06-23', 'description':''}  
         logging.error("Talk json:  %s " %  self.talk1.to_json())
         self.assertEqual(expected, self.talk1.to_json())
