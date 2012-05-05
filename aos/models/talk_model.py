@@ -12,6 +12,7 @@ class Talk(db.Model, Serializable):
     duration = db.IntegerProperty(default=1)
     room = db.ReferenceProperty(reference_class= Room, collection_name='talks')
     speaker = db.ReferenceProperty(reference_class= Attendant, collection_name='talks')
+    description = db.StringProperty(default="")
     
     def set_room(self, room_key):
         self.room = room_key
@@ -30,12 +31,12 @@ class Talk(db.Model, Serializable):
         return hours  
         
     @classmethod
-    def create_talk(cls, title, attendant_key_name, hour = None, minute = 0):
+    def create_talk(cls, title, attendant_key_name, hour = None, minute = 0, description=""):
         if hour:
             talk_time = time(hour, minute)
         else:
             talk_time = None
-        talk = Talk(title = title, time = talk_time, speaker = attendant_key_name)
+        talk = Talk(title = title, time = talk_time, speaker = attendant_key_name, description = description)
         return talk
     
     @classmethod
