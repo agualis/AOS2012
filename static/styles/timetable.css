@@ -15,35 +15,45 @@ header {
 	position:absolute; z-index:2;
 	top:0; left:0;
 	width:100%;
-	height:45px;
-	line-height:45px;
+	padding:0px 0px 5px 0px;
 	background-color:#6cc3f2;
 	background-image:-webkit-gradient(linear, 0 0, 0 100%, color-stop(0, #9bd6f6), color-stop(0.02, #7bc9f3), color-stop(1, #083c58));
 	background-image:-moz-linear-gradient(top, #9bd6f6, #7bc9f3 2%, #083c58);
 	background-image:-o-linear-gradient(top, #9bd6f6, #7bc9f3 2%, #083c58);
-	padding:0;
 	color:#eee;
 	font-size:20px;
-	text-align:center;
+	text-align:left;
 }
 
-header a {
+header span {
 	color:#FFF;
 	text-decoration:none;
 	font-weight:bold;
+	line-height: 41px;
+	margin-left:10px;
 	text-shadow:0 -1px 0 rgba(0,0,0,0.5);
+}
+header a{
+	font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
 }
 header nav{
 	display:inline-block;
 	float:right;
-	margin-right: 10px;
-	
+	margin-right:4px;
+	margin-top: 4px;
+	min-width:235px;
 }
 header nav ul li{
-	list-style:none;
-	display:inline-block;
-	margin-right: 5px;
-	background:transparent;
+    background: none repeat scroll 0 0 #E9F6FD;
+    border-radius: 5px 5px 5px 5px;
+    display: inline-block;
+    list-style: none outside none;
+    margin: 3px;
+    padding: 2px 7px;
+    text-align: center;
 }
 header nav ul li img{
 	width: 22px;
@@ -126,3 +136,22 @@ header nav ul li img{
 	top: -15px;
 }
 
+@media (max-width:374px){
+	header{
+		text-align:center;
+	}
+	header span{
+		clear:both;
+	}
+	header nav{
+		clear:both;
+		float: none;
+	}
+	#wrapper{
+		top:86px;
+	}
+	#menu-primary .menu {
+		top: 0px;
+		overflow: hidden;
+	}
+}

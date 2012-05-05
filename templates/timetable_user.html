@@ -1,0 +1,45 @@
+{% extends "includes/base_user.html" %}{% load i18n %}
+{% block stylesheets2 %}
+<link href="/static/styles/base.css" type="text/css" rel="stylesheet">
+{% endblock stylesheets2 %}
+{% block scripts2 %}
+<script type="text/javascript" src="/static/src/Timetable.js"></script>
+<script type="text/javascript">
+var timetable = new Timetable();
+</script>
+{% endblock scripts2 %}
+
+{% block global_content %}
+<table id="board">
+<tr>
+<td>Horario</td>
+{% for room in rooms%}
+    <td>{{ room.name }}</td>
+{% endfor %}
+</tr>
+
+{% for hour in rows %}
+<tr>
+<td id="hour" >
+    {{ hour.hour }}
+</td>
+    {% for talk in hour.talks_by_room %}
+            <td id={{ talk.title }} >
+                    {% if talk.title %}
+                        {{ talk.title }} <br>
+                        {% if talk.speaker %}
+                            {{talk.speaker}} <br>
+                        {% endif %}
+                        {% if talk.speaker.twitter_id %}
+                            <div>
+                                <img src='attendant/avatar?email={{ talk.speaker.email }}'></img>
+                            </div>
+                        {% endif %}
+                    {%endif%}
+            </td>
+    {% endfor %}
+</tr>
+{% endfor %}
+</table>
+{% endblock global_content%}
+

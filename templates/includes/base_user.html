@@ -1,0 +1,50 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="es">
+<head id="{{ token|default:'no_token' }}">
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	 <title>{% block title %}Kit-AOS{% endblock title %}</title>
+  	 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  	 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	<meta name="keywords" content="AOS"/>
+	<meta name="description" content=""/>
+	<meta charset="UTF-8"/>
+    {% block stylesheets %}
+		<link type="text/css" rel="stylesheet" href="/static/styles/timetable.css"/>
+    	{% block stylesheets2 %}{% endblock stylesheets2 %}
+    {% endblock stylesheets %}
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+{% block common_header %}
+<header>
+	<span>KitAOS 2012</span>
+	<nav>
+		<ul class='mainMenu'>
+			<li><a id="aInfo" href="http://aos2012.agile-spain.org">Info</a></li>
+			<li><a id="aAgenda" href="/timetable/user/">Panel</a></li>
+			<li><a id="aNews" href="/">Charlas</a></li>
+		</ul>
+	</nav>
+</header>
+
+{% endblock common_header %}
+<section id="wrapper" style="overflow-x: hidden; overflow-y: hidden; ">
+	<article id="list" class="scroller" style="-webkit-transition-property: -webkit-transform; -webkit-transform-origin-x: 0px; -webkit-transform-origin-y: 0px; -webkit-transition-duration: 0ms; -webkit-transform: translate3d(0px, 0px, 0px) scale(1); ">            
+{% block global_content %}
+{% endblock global_content %}
+	</article>
+</section>
+{% block scripts %}
+<script type="text/javascript" src="/static/scripts/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery-ui-1.8.18.custom.min.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery.sha1.js"></script>
+<script type="text/javascript" src="/static/scripts/login.js"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+{% endblock scripts %}
+{% block scripts2 %}{% endblock scripts2 %}
+	
+</body>	
+</html>

@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-<title>KitAOS</title>
-<link type="text/css" rel="stylesheet" href="/static/styles/timetable.css"/>
+{% extends "includes/base_user.html" %}
+
+{% block scripts2 %}
 <script type="text/javascript" src="/static/scripts/iscroll.js"></script>
-<!--[if lt IE 9]>
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
 <script type="text/javascript">
 
 var myScroll;
@@ -44,23 +37,21 @@ document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 2
 /*
  * * * * * * * */
 
-</script>
-</head>
-<body>
+document.getElementById("aInfo").onclick=function(){
+	ocultarVistas();
+	mostrarVista("info");
+};
+function ocultarVistas(){
+	
+}
 
-<header>
-	<a href="#">KitAOS 2012</a>
-	<nav>
-		<ul class='mainMenu'>
-			<li><a id="aInfo" href="http://aos2012.agile-spain.org"><img src="/static/img/info.svg" alt="Info"/></a></li>
-			<li><a id="aAgenda" href="/timetable"><img src="/static/img/calendar.svg" alt="Agenda"/></a></li>
-			<li><a id="aUsers" href="/login"><img src="/static/img/users.svg" alt="Asistentes"/></a></li>
-			<li><a id="aNews" href="#"><img src="/static/img/news.svg" alt="Ahora"/></a></li>
-		</ul>
-	</nav>
-</header>
-<section id="wrapper" style="overflow-x: hidden; overflow-y: hidden; ">
-	<article id="list" class="scroller" style="-webkit-transition-property: -webkit-transform; -webkit-transform-origin-x: 0px; -webkit-transform-origin-y: 0px; -webkit-transition-duration: 0ms; -webkit-transform: translate3d(0px, 0px, 0px) scale(1); ">
+function mostrarVista(){
+
+}
+</script>
+{% endblock scripts2 %}
+
+{% block global_content %}
 		<ul id="thelist">
 			{% for hour in rows %}
 			<ul>
@@ -90,20 +81,4 @@ document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 2
 	
 	<article id="info" class="scroller">
 		INFO
-	</article>
-</section>
-<script>
-document.getElementById("aInfo").onclick=function(){
-	ocultarVistas();
-	mostrarVista("info");
-};
-function ocultarVistas(){
-	
-}
-
-function mostrarVista(){
-
-}
-</script>
-</body>
-</html>
+{% endblock global_content %}
