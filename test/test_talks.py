@@ -15,8 +15,7 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
         room_key1 = self.room1.put()
         room_key2 = self.room2.put()
         self.attendant_key = Attendant.create('Ponente1', 'Apellido1', 'asistente1@aos.com', 'Zaragoza', False).put()
-        self.talk1 = Talk(title = 'Titulo1', speaker = self.attendant_key, room = room_key1)
-        self.talk1.time = time(9,0)
+        self.talk1 = Talk(title = 'Titulo1', speaker = self.attendant_key, room = room_key1, session = 4)
         self.talk1.put()
         Talk(title = 'Titulo2', speaker = self.attendant_key, room = room_key2).put()
         Talk(title = 'Titulo3', speaker = self.attendant_key, room = room_key1).put()
@@ -39,27 +38,21 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
         talk = Talk.add_room_to_talk(self.talk_key_4.id(), self.room1.key())
         self.assertEquals('sala1', talk.room.name)
         
-    def test_add_time_to_talk(self):
-        talk = Talk.add_time_to_talk(self.talk_key_4.id(), 11, 30)
-        self.assertEquals(11, talk.time.hour)
-        
     def test_get_talks_from_room(self):
         talks = Talk.get_talks_from_room(self.room1.key())
         self.assertEqual('Titulo1Titulo3', talks[0].title + talks[1].title)
         
     def test_get_talks_during_hour(self):
-        talk= Talk.create_talk('Charla1', self.attendant_key)
-        talk2= Talk.create_talk('Charla2', self.attendant_key)
-        talk.set_time(time(11)).put()
-        talk2.set_time(time(11)).put()
-        talks = Talk.get_talks_during_hour(11)
+        Talk.create_talk('Charla1', self.attendant_key, session=1).put()
+        Talk.create_talk('Charla2', self.attendant_key, session=1).put()
+        talks = Talk.get_talks_during_session(1)
         self.assertEquals("Charla1Charla2", talks[0].title + talks[1].title)
         
     def test_serialize_to_json(self):
         expected = {'room': {'name': u'sala1'}, 
-                    'title': 'Titulo1', 'duration': 1, 
+                    'title': 'Titulo1', 'duration': 1, 'session': 4,
                     'speaker': {'city': u'Zaragoza', 'first_name': u'Ponente1', 'last_name': u'Apellido1', 'twitter_id': u'', 'computers_needed': False, 'speaker': False, 'email': u'asistente1@aos.com'}, 
-                    'time': '9:0', 'date': '2012-06-23', 'description':''}  
+                    'date': '2012-06-23', 'description':''}  
         logging.error("Talk json:  %s " %  self.talk1.to_json())
         self.assertEqual(expected, self.talk1.to_json())
         

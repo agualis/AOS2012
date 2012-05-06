@@ -16,13 +16,11 @@ def init_app(request):
         User.create_admin('admin', 'aos').put()
         Room.init_rooms()
         if not Talk.all().count(1) > 0:
-            talk = Talk(title = 'Android')
+            talk = Talk(title = 'Android', session=1)
             talk.set_room(Room.get_rooms()[0])
-            talk.set_time(time(11))
             talk.put()
-            talk = Talk(title = 'Kanban')
+            talk = Talk(title = 'Kanban', session=5)
             talk.set_room(Room.get_rooms()[1])
-            talk.set_time(time(9))
             talk.put()
         if not Attendant.all().count(1) > 0:
             bill = Attendant.create('Bill', 'Gates', 'bill@microsoft.com', 'Zaragoza', False)

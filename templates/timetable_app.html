@@ -53,10 +53,10 @@ function mostrarVista(){
 
 {% block global_content %}
 		<ul id="thelist">
-			{% for hour in rows %}
+			{% for row in rows %}
 			<ul>
-				<li class="hour">{{ hour.hour }}:00h</li>
-				{% for talk in hour.talks_by_room %}
+				<li class="hour">{{ row.hour }}h</li>
+				{% for talk in row.talks_by_room %}
 					 {% if talk.title %}
 						<li class="rowCentered" id="{{ talk.title }}">
 							<label>{{ talk.room.name }}</label>

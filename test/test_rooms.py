@@ -13,9 +13,9 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
         self.room1 = Room.create_room('1', 'sala1')
         room_key1 = self.room1.put()
         room_key2 = Room.create_room('2', 'sala2').put()
-        Talk(title = 'Titulo1',  time = time(8), room = room_key1).put()
-        Talk(title = 'Titulo2',  time = time(20), room = room_key1).put()
-        Talk(title = 'Titulo3',  time = time(15), room = room_key2).put()
+        Talk(title = 'Titulo1',  session = 1, room = room_key1).put()
+        Talk(title = 'Titulo2',  session = 2, room = room_key1).put()
+        Talk(title = 'Titulo3',  session = 3, room = room_key2).put()
 
     def test_fetch_talks_from_room(self):
         room = Room.all().filter('name', 'sala1').get()
@@ -24,7 +24,7 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
 
     def test_filter_by_talk_name(self):
         talk = self.room1.talks.filter('title', 'Titulo2').get()
-        self.assertEquals(20, talk.time.hour)
+        self.assertEquals(2, talk.session)
         
     def test_serialize_to_json(self):
         logging.error("Talk json:  %s " %  self.room1.talks[0].to_json())

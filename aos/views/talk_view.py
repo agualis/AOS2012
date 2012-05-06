@@ -18,9 +18,9 @@ class TalkForm(djangoforms.ModelForm):
         super(TalkForm, self).__init__(*args, **kwargs)
         self.fields['speaker'].query = Attendant.all().filter('speaker', True).fetch(100)
     
-def create_talk(request, hour, room_id):
+def create_talk(request, session, room_id):
     room = Room.get_by_key_name(room_id)
-    talk = Talk(title = 'New Talk', room = room, hour = int(hour))
+    talk = Talk(title = 'New Talk', room = room, session = int(session))
     if request.method == "GET":
         return show_talk_form_to_edit(request, TalkForm(instance=talk))
     else:

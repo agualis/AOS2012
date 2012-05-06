@@ -18,12 +18,12 @@ var timetable = new Timetable();
 {% endfor %}
 </tr>
 
-{% for hour in rows %}
+{% for row in rows %}
 <tr>
 <td id="hour" >
-    {{ hour.hour }}
+    {{ row.hour }}h
 </td>
-    {% for talk in hour.talks_by_room %}
+    {% for talk in row.talks_by_room %}
             <td id={{ talk.title }} >
                     {% if talk.title %}
                         {{ talk.title }} <br>

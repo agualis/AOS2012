@@ -1,35 +1,35 @@
 from aos.models.talk_model import Talk
 from aos.models.room_model import Room
-from aos.lib.timetable.hour_row import HourRow
+from aos.lib.timetable.session_row import SessionRow
 
 class Timetable():
     grid = {}
 
     def __init__(self):
-        for hour in Talk.get_talk_hours():
+        for session in Talk.get_talk_sessions():
             room_dict = {}
             for room in Room.get_rooms():
                 room_dict[room.name] = None
-            self.grid[hour]= dict(room_dict)
+            self.grid[session]= dict(room_dict)
                 
         for talk in Talk.all().fetch(1000):
-            if talk.hour:
+            if talk.session:
                 self.add_talk(talk)
                 
     def get_grid(self):
         return self.grid
                 
     def add_talk(self, talk):
-        self.grid[talk.hour][talk.room.name] = talk
+        self.grid[talk.session][talk.room.name] = talk
         
     def get_rows_for_template(self):
-        hour_rows = []
-        for hour in Talk.get_talk_hours():
-            row = HourRow(hour)
+        session_rows = []
+        for session in Talk.get_talk_sessions():
+            row = SessionRow(session)
             for room in Room.get_rooms():
-                row.add_talk(self.grid[hour][room.name])
-            hour_rows.append(row)
-        return hour_rows
+                row.add_talk(self.grid[session][room.name])
+            session_rows.append(row)
+        return session_rows
     
     def get_talks(self):
         return Talk.all().fetch(1000)
