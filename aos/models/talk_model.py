@@ -3,6 +3,7 @@ from aos.lib.common_utils.json_utils import Serializable
 from aos.models.room_model import Room
 from aos.models.attendant_model import Attendant
 from datetime import time, date
+from aos.lib.timetable.session_row import SESSION_HOURS
     
 class Talk(db.Model, Serializable):
     title = db.StringProperty(required=True)
@@ -16,6 +17,11 @@ class Talk(db.Model, Serializable):
     def set_room(self, room_key):
         self.room = room_key
         return self
+    
+    def to_json(self):
+        result = Serializable.to_json(self)
+        result['time']=SESSION_HOURS[self.session]
+        return result
 
     @classmethod
     def get_talk_sessions(cls):

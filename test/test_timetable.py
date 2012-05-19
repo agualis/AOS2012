@@ -48,11 +48,9 @@ class TimetableTestCase(unittest.TestCase, TestBedInitializer):
         timetable = Timetable()
         timetable.add_talk(self.talk)
         self.talk.put()
-        talk2 = Talk(title = 'Titulo2', room = self.room2).put()
-
+        talk2 = Talk(title = 'Titulo2', room = self.room2, session=1).put()
         
         talks = timetable.get_talks()
-        
         talks_json = timetable.get_talks_json()
         logging.error("AG:  %s " %  talks_json)
         

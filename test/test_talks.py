@@ -52,7 +52,7 @@ class TalksTestCase(unittest.TestCase, TestBedInitializer):
         expected = {'room': {'name': u'sala1'}, 
                     'title': 'Titulo1', 'duration': 1, 'session': 4,
                     'speaker': {'city': u'Zaragoza', 'first_name': u'Ponente1', 'last_name': u'Apellido1', 'twitter_id': u'', 'computers_needed': False, 'speaker': False, 'email': u'asistente1@aos.com'}, 
-                    'date': '2012-06-23', 'description':''}  
+                    'time': '13:00', 'date': '2012-06-23', 'description':''}  
         logging.error("Talk json:  %s " %  self.talk1.to_json())
         self.assertEqual(expected, self.talk1.to_json())
         
