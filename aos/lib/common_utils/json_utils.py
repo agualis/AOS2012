@@ -6,7 +6,6 @@ from google.appengine.ext import db
 import traceback
 from datetime import time
 
-
 class JsonResponse(HttpResponse):
     def __init__(self, object=None, content_type='application/json', **kwargs):
         super(JsonResponse, self).__init__(
