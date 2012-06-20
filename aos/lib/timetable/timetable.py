@@ -24,10 +24,14 @@ class Timetable():
         
     def get_rows_for_template(self):
         session_rows = []
+        contador = 0
         for session in Talk.get_talk_sessions():
             row = SessionRow(session)
             for room in Room.get_rooms():
+                if self.grid[session][room.name]:
+                    self.grid[session][room.name].contador = contador
                 row.add_talk(self.grid[session][room.name])
+                contador = contador + 1
             session_rows.append(row)
         return session_rows
     

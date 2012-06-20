@@ -1,7 +1,6 @@
 {% extends "includes/base_user.html" %}
 
 {% block linkToTheOthersPages %}
-<li><a id="aAgenda" href="/timetable/user/">Panel</a></li>
 <li><a id="aMap" href="/map">Mapa</a></li>
 {% endblock linkToTheOthersPages %}
 
@@ -57,16 +56,18 @@ function mostrarVista(){
 {% endblock scripts2 %}
 
 {% block global_content %}
+<section id="wrapper" style="overflow-x: hidden; overflow-y: hidden; ">
+	<article id="list" class="scroller" style="-webkit-transition-property: -webkit-transform; -webkit-transform-origin-x: 0px; -webkit-transform-origin-y: 0px; -webkit-transition-duration: 0ms; -webkit-transform: translate3d(0px, 0px, 0px) scale(1); ">            
 	<ul id="thelist">
 			{% for row in rows %}
 			<ul>
 				<li class="hour">{{ row.hour }}h</li>
 				{% for talk in row.talks_by_room %}
 					 {% if talk.title %}
-						<li class="rowCentered" id="{{ talk.title }}">
-							<label>{{ talk.room.name }}</label>
-							<span>{{ talk.title }}</span><br />
-							{% if talk.speaker %}
+					    <li class="rowCentered talk" id="{{ talk.title }}">
+							<label>{{ talk.title }}</label>
+							<span>{{ talk.room.name }}</span><br />
+							{% if talk.speaker %}							
 							<div class="speaker">
 								{% if talk.speaker.twitter_id %}
 				      			 	<img src='attendant/avatar?email={{ talk.speaker.email }}' /> 
@@ -76,6 +77,10 @@ function mostrarVista(){
 				                 <span class="speaker-name">{{talk.speaker}}</span>
 				            </div>
 				            {% endif %}
+				            {% if talk.description %}
+					            <a href="javascript:void(0)" onclick="$('#info-{{talk.contador}}').slideToggle()" class="info-link">Mostrar información</a>
+					            <p id="info-{{talk.contador}}" class="description" style="display:none">{{talk.description}}</p>
+					        {% endif %}
 						</li>
 					{% endif %}
 				{% endfor %}
@@ -86,4 +91,6 @@ function mostrarVista(){
 	
 	<article id="info" class="scroller">
 		INFO
+	</article>
+</section>
 {% endblock global_content %}

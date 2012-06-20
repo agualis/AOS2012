@@ -16,6 +16,8 @@ var timetable = new Timetable();
 {% endblock scripts2 %}
 
 {% block global_content %}
+<section id="wrapper" style="overflow-x: auto; overflow-y: auto; ">
+	<article id="list" class="scroller" style="-webkit-transition-property: -webkit-transform; -webkit-transform-origin-x: 0px; -webkit-transform-origin-y: 0px; -webkit-transition-duration: 0ms; -webkit-transform: translate3d(0px, 0px, 0px) scale(1); ">            
 <table id="board">
 <tr>
 <td>Horario</td>
@@ -45,7 +47,10 @@ var timetable = new Timetable();
             </td>
     {% endfor %}
 </tr>
+
 {% endfor %}
 </table>
+	</article>
+</section>
 {% endblock global_content%}
 

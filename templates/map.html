@@ -2,7 +2,6 @@
 
 {% block linkToTheOthersPages %}
 <li><a id="aNews" href="/">Charlas</a></li>
-<li><a id="aAgenda" href="/timetable/user/">Panel</a></li>
 {% endblock linkToTheOthersPages %}
 
 {% block stylesheets2 %}
@@ -26,11 +25,10 @@
 {% endblock scripts2 %}
 
 {% block global_content %}
-<ul id="thelist">
-<a href="/static/img/planoAOS2012.png"><img class="sourceImage" src='/static/img/planoAOS2012.png'></a>
-</ul>
-</article>
-	<article id="info" class="scroller">
-		INFO
+<section id="wrapper" style="overflow-x: hidden; overflow-y: hidden; ">
+	<article id="list" class="scroller" style="-webkit-transition-property: -webkit-transform; -webkit-transform-origin-x: 0px; -webkit-transform-origin-y: 0px; -webkit-transition-duration: 0ms; -webkit-transform: translate3d(0px, 0px, 0px) scale(1); ">            
+		<a href="/static/img/planoAOS2012.png"><img class="sourceImage" src='/static/img/planoAOS2012.png'></a>
+	</article>
+</section>
 {% endblock global_content%}
 

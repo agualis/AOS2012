@@ -113,6 +113,7 @@ header nav ul li img{
 }
 #thelist li span{
 	color:grey;
+	font-size:0.8em;
 }
 #info{
 	display:none;
@@ -128,9 +129,29 @@ header nav ul li img{
 	margin-right: auto;
 }
 
+.talk{
+	line-height:22px!important;
+	padding:10px!important;
+	
+}
+
 .speaker-name {
 	position: relative;
 	top: -15px;
+}
+
+.info-link {
+	font-size:0.75em;
+	margin:0;
+	padding:0;
+}
+
+.description {
+	font-size:0.75em;
+	padding:2px;
+	color:grey;
+	line-height: 1em;
+    margin: 0 0 5px;
 }
 
 @media (max-width:374px){
