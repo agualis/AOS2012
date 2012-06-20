@@ -1,4 +1,4 @@
-SESSION_HOURS = ['','9:30','10:30','12:00','13:00','15:30','16:30']    
+SESSION_HOURS = ['','9:30','10:30','12:00','13:00','16:00','17:00']    
 class SessionRow():
     def __init__(self, session):
         self.session = session
