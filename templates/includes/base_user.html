@@ -25,13 +25,13 @@
 	<nav>
 		<ul class='mainMenu'>
 			<li><a id="aInfo" href="http://aos2012.agile-spain.org">Info</a></li>
-			<li><a id="aAgenda" href="/timetable/user/">Panel</a></li>
-			<li><a id="aNews" href="/">Charlas</a></li>
+			{% block linkToTheOthersPages %}{% endblock linkToTheOthersPages %}
 		</ul>
 	</nav>
 </header>
 
 {% endblock common_header %}
+
 <section id="wrapper" style="overflow-x: hidden; overflow-y: hidden; ">
 	<article id="list" class="scroller" style="-webkit-transition-property: -webkit-transform; -webkit-transform-origin-x: 0px; -webkit-transform-origin-y: 0px; -webkit-transition-duration: 0ms; -webkit-transform: translate3d(0px, 0px, 0px) scale(1); ">            
 {% block global_content %}

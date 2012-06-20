@@ -1,5 +1,10 @@
 {% extends "includes/base_user.html" %}
 
+{% block linkToTheOthersPages %}
+<li><a id="aAgenda" href="/timetable/user/">Panel</a></li>
+<li><a id="aMap" href="/map">Mapa</a></li>
+{% endblock linkToTheOthersPages %}
+
 {% block scripts2 %}
 <script type="text/javascript" src="/static/scripts/iscroll.js"></script>
 <script type="text/javascript">
@@ -52,7 +57,7 @@ function mostrarVista(){
 {% endblock scripts2 %}
 
 {% block global_content %}
-		<ul id="thelist">
+	<ul id="thelist">
 			{% for row in rows %}
 			<ul>
 				<li class="hour">{{ row.hour }}h</li>

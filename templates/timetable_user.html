@@ -1,4 +1,10 @@
 {% extends "includes/base_user.html" %}{% load i18n %}
+
+{% block linkToTheOthersPages %}
+<li><a id="aNews" href="/">Charlas</a></li>
+<li><a id="aMap" href="/map">Mapa</a></li>
+{% endblock linkToTheOthersPages %}
+
 {% block stylesheets2 %}
 <link href="/static/styles/base.css" type="text/css" rel="stylesheet">
 {% endblock stylesheets2 %}

@@ -1,0 +1,36 @@
+{% extends "includes/base_user.html" %}{% load i18n %}
+
+{% block linkToTheOthersPages %}
+<li><a id="aNews" href="/">Charlas</a></li>
+<li><a id="aAgenda" href="/timetable/user/">Panel</a></li>
+{% endblock linkToTheOthersPages %}
+
+{% block stylesheets2 %}
+<link href="/static/styles/base.css" type="text/css" rel="stylesheet">
+{% endblock stylesheets2 %}
+{% block scripts2 %}
+<script type="text/javascript">
+	$(document).ready(function() { 
+		var $winwidth = $(window).width();
+		$("img.sourceImage").attr({
+			width: $winwidth
+		});
+		$(window).bind("resize", function(){ 
+			var $winwidth = $(window).width();
+			$("img.sourceImage").attr({
+				width: $winwidth
+			});
+		 });
+	}); 
+</script>
+{% endblock scripts2 %}
+
+{% block global_content %}
+<ul id="thelist">
+<a href="/static/img/planoAOS2012.png"><img class="sourceImage" src='/static/img/planoAOS2012.png'></a>
+</ul>
+</article>
+	<article id="info" class="scroller">
+		INFO
+{% endblock global_content%}
+

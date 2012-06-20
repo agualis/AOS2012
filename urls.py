@@ -26,6 +26,7 @@ urlpatterns = patterns('',
 	(r'^talk/?$', 'aos.views.talk_view.edit_talk'),
 	(r'^speaker/?$', 'aos.views.speakers_view.set_speaker'),
 	(r'^speaker/remove?$', 'aos.views.speakers_view.remove_speaker'),
+    (r'^map?$', 'aos.views.map_view.show_map'),
     
 
     #login functions
