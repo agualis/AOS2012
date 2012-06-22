@@ -15,7 +15,7 @@ class Attendant(db.Model, Serializable):
     city = db.StringProperty(verbose_name='Ciudad',required=True)
     computers_needed = db.BooleanProperty(verbose_name='Necesita Ordenadores', default=False)
     user = db.ReferenceProperty(reference_class= User, collection_name='attendant')
-    speaker = db.BooleanProperty(default=False)
+    speaker = db.BooleanProperty(default=True)
     json_excluded = ['user']
     
     def __unicode__(self):
