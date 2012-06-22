@@ -8,7 +8,7 @@ class Room(db.Model, Serializable):
     def __unicode__(self):
         return self.name
     
-    room_names = ['Sala Plenos', 'Sala Consejo', 'Salon Arcos', 'Aula 1', 'Aula 2', 'Aula 3']
+    room_names = ['Salon de Actos','Aula 1', 'Aula 2', 'Aula 3','Salon de Arcos', 'Salon del Pleno', 'Sala de Prensa']
     @classmethod
     def create_room(cls, room_id, room_name):
         return Room(key_name = room_id, name = room_name)
