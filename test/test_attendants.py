@@ -63,12 +63,9 @@ class AttendantTestCase(unittest.TestCase, TestBedInitializer):
         self.assertTrue(attendant.twitter_avatar != None)
         
     def test_to_json(self):
-        expected = {'city': 'Zaragoza3', 'first_name': 'Bill', 'last_name': 'Gates', 'twitter_id': '', 'computers_needed': True, 'email': u'billgates@microsoft.com', 'speaker': False}
+        expected = {'city': 'Zaragoza3', 'first_name': 'Bill', 'last_name': 'Gates', 'twitter_id': '', 'computers_needed': True, 'email': u'billgates@microsoft.com', 'speaker': True}
         self.assertEquals(expected, self.attendant.to_json())
         
-    def test_get_empty_speakers_json(self):
-        self.assertEquals([], Attendant.get_speakers_json())
-
     def test_get_speakers_json(self):
         expected = [{'city': u'Zaragoza3', 'first_name': u'Bill', 'last_name': u'Gates', 'twitter_id': u'', 
                      'computers_needed': True, 'speaker': True, 'email': u'billgates@microsoft.com'},
